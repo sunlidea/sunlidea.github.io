@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="sunlidea">
 <meta property="og:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-09T02:38:15.000Z">
+<meta property="og:updated_time" content="2018-07-09T03:11:58.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言中slice使用注意事项">
 <meta name="twitter:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
@@ -308,6 +308,7 @@
 </ol>
 <p>因此当我们定义如下一个切片变量<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
 <p>s即为指向了一个最大长度为10的底层数组，目前切片s使用到的长度为5。</p>
+<a id="more"></a>
 <h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>基于slice的定义，在使用slice时，有以下几点注意事项：</p>
 <h3 id="一-切分操作"><a href="#一-切分操作" class="headerlink" title="一. 切分操作"></a>一. 切分操作</h3><p>对slice进行切分操作会生成一个新的slice变量，新slice和原来的slice指向同一个底层数组，只不过指向的起始位置可能不同，长度及容量可能也不相同。</p>
 <ul>
