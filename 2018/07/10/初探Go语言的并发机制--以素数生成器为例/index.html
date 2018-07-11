@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。 通过沟通共享内存 “Do not communicate by sharing memory; instead, share memory by communic">
+<meta name="description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以素数生成器为例阐述Go语言的并发机制">
 <meta property="og:url" content="http://yoursite.com/2018/07/10/初探Go语言的并发机制--以素数生成器为例/index.html">
 <meta property="og:site_name" content="sunlidea">
-<meta property="og:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。 通过沟通共享内存 “Do not communicate by sharing memory; instead, share memory by communic">
+<meta property="og:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-11T10:48:48.000Z">
+<meta property="og:updated_time" content="2018-07-11T10:53:56.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以素数生成器为例阐述Go语言的并发机制">
-<meta name="twitter:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。 通过沟通共享内存 “Do not communicate by sharing memory; instead, share memory by communic">
+<meta name="twitter:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。">
 
 
 
@@ -300,6 +300,7 @@
 
       
         <p>并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。</p>
+<a id="more"></a>
 <h2 id="通过沟通共享内存"><a href="#通过沟通共享内存" class="headerlink" title="通过沟通共享内存"></a>通过沟通共享内存</h2><blockquote>
 <p>“Do not communicate by sharing memory; instead, share memory by communicating.”</p>
 </blockquote>

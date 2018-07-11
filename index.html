@@ -299,70 +299,14 @@
 
       
         
-          
-            <p>并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。</p>
-<h2 id="通过沟通共享内存"><a href="#通过沟通共享内存" class="headerlink" title="通过沟通共享内存"></a>通过沟通共享内存</h2><blockquote>
-<p>“Do not communicate by sharing memory; instead, share memory by communicating.”</p>
-</blockquote>
-<p>上面这句话可以说是Go语言并发模型的中心思想了，翻译过来就是：不要通过共享内存进行通信，要通过通信来共享内存。</p>
-<p>这句话该怎样理解呢？</p>
-<ul>
-<li><p>并发编程的关键点在于，如何让并发的程序间进行安全有效的信息共享；</p>
-</li>
-<li><p>在其他语言中，一种主流的并发编程的模型是，对多个线程公用的数据进行显式的加锁，通过对同一份公用数据的读写(share memory)进行线程间的沟通(communicate)。这种方式就是”communicate by sharing memory”。这种方式一个显著的缺点就是加解锁很容易出错，并且从语法的角度也更显得复杂；</p>
-</li>
-<li><p>而在Go语言中，我们可以这样理解并发：</p>
-<ul>
-<li><p>假设我们现在编写了一个跑在单CPU上的单线程程序A，那么在这个程序里就不需要涉及同步原语(比如.加锁)。然后我们再编写一个跑在单CPU上的单线程程序B，那么在这个程序里也不需要涉及同步原语(比如.加锁)。现在让程序A和B之间进行通信，当然通信的时候也不需要同步原语(比如.加锁)，同时A和B能够获取到对方的信息。Unix pipelines就是完美适用这种模型的例子。虽然具体实现上有差别，不过Go语言的并发可以看做是Unix pipelines的一种类型安全的实现。</p>
-</li>
-<li><p>对应到Go语言并发的模型就是，两个在同一个地址空间的Goroutine通过Channel类型的变量实现信息的共享，也就是share memory by communicating。</p>
-</li>
-<li><p>这种模型显著的好处是，隐藏了操作系统os的线程的创建和管理，不需要进行显示的加解锁操作，大大简化了并发程序编写的程序。其实从心理层面来说，也会让使用者不再”害怕”去编写并发程序。</p>
-</li>
-</ul>
-</li>
-</ul>
-<h2 id="Goroutines-和-Channels"><a href="#Goroutines-和-Channels" class="headerlink" title="Goroutines 和 Channels"></a>Goroutines 和 Channels</h2><p>从上面我们能够了解到实现Go语言并发的两大因素就是Go程(Goroutines)和通道(Channels)类型的变量。下面主要介绍一下这两个关键点有哪些特殊的地方。</p>
-<h3 id="Goroutines"><a href="#Goroutines" class="headerlink" title="Goroutines"></a>Goroutines</h3><p>之所以叫Goroutines是因为当前现存的描述并发的术语: 线程(threads)，协程(coroutines)，进程(processes)等等并不能准确描述Go语言并发处理的程序。一个Go程(Goroutines)就是一个可以和处于相同地址空间的Go程并发执行的函数(function)。</p>
-<p>Go程是非常轻量廉价的，开启一个Go程最初只需要2KB左右的栈(stacks)空间，后面会根据该Go程的使用情况的需要，申请或者释放堆存储空间(heap storage)。Go程(Goroutines)是对多个操作系统线程的多路复用，由Go语言runtime的内部调度器进行调度。内部调度器负责创建和管理操作系统的线程，以供Go程使用，因此对操作者隐藏了这一部分的复杂性。</p>
-<h4 id="Go程-Goroutines-vs-线程-threads-："><a href="#Go程-Goroutines-vs-线程-threads-：" class="headerlink" title="Go程(Goroutines) vs 线程(threads)："></a><em>Go程(Goroutines) vs 线程(threads)：</em></h4><ol>
-<li><p>Go程可以说是Go语言层面的概念，线程是操作系统(OS)级的概念；</p>
-</li>
-<li><p>Go程是由Go语言内部调度器进行调度，线程是由操作系统进行操控；</p>
-</li>
-<li><p>Go程开销非常小，初始只需要2KB的栈空间，而线程的初始开销则是MB级别的；</p>
-</li>
-</ol>
-<h3 id="Channels"><a href="#Channels" class="headerlink" title="Channels"></a>Channels</h3><p>channels类型的变量可以说就是为了进行Go程间的通信而存在的，并且这种通信是并发安全的，同一时间只有一个Go程能对channel变量进行操作。就像channels的含义”通道”，channels类型的变量就是Go程间的信息通道。这也就能很好解释Go语言并发的中心思想–通过通信来共享内存，channels类型的变量就是安全的通信通道。</p>
-<h2 id="从素数生成器看Go语言的并发"><a href="#从素数生成器看Go语言的并发" class="headerlink" title="从素数生成器看Go语言的并发"></a>从素数生成器看Go语言的并发</h2><p>素数：又称质数，定义为在大于1的自然数中，除了1和它本身以外不再有其他因数的数称为质数。</p>
-<p>一种验证素数的方法：一个数A， 如果小于它的素数全不能被该数A整除，则该数A为素数 (关于该方法正确性的证明，不在本文讨论范围内)</p>
-<p>如何去实现一个素数生成器呢？咱们可以这样想：</p>
-<ol>
-<li><p>首先我们需要一个整数的数据来源，最小素数是2，那么我们需要一个从2开始递增的整数输出源；</p>
-</li>
-<li><p>最小的素数是2，那么根据上面的验证素数的方法，下一个素数就是不能被2整除的第一个整数，也就是3；再下一个素数也就是不能被2和3整除的第一个整数，也就是5；依次类推</p>
-</li>
-<li><p>也就是说，我们让步骤1中产生的数据源依次通过已找到的全部素数，完全不能被现有素数整除的第一个整数，就是下一个素数。</p>
-</li>
-</ol>
-<p>具体到Go语言的代码实现如下：</p>
-<p><a href="https://golang.org/doc/play/sieve.go" target="_blank" rel="noopener">源代码链接</a></p>
-<p><a href="https://play.golang.org/p/0hi9osM0SQ3" target="_blank" rel="noopener">The Go Playground在线运行版</a></p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//素数生成器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成用于筛选的数据源 发送2,3,4,...到通道变量ch</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Generate</span><span class="params">(ch <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//2是最小的素数，从2开始递增</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">2</span>; ; i++ &#123;</span><br><span class="line">		<span class="comment">//发送i到通道ch</span></span><br><span class="line">		ch &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Filter</span><span class="params">(prime <span class="keyword">int</span>, in &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>, out <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">//从in通道获取数据</span></span><br><span class="line">		i := &lt;-in</span><br><span class="line">		<span class="keyword">if</span> i%prime != <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">//如果i不能被当前的素数prime整除，</span></span><br><span class="line">			<span class="comment">//那么就发送给通道out继续进行检验</span></span><br><span class="line">			out &lt;- i</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//如果i能够被prime整除，说明不为素数，不做处理</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始通道</span></span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开辟一个Go程 用于生成数据源</span></span><br><span class="line">	<span class="keyword">go</span> Generate(ch)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//最新找到的一个素数 这里输出来</span></span><br><span class="line">		prime := &lt;-ch</span><br><span class="line">		fmt.Println(prime)</span><br><span class="line"></span><br><span class="line">		ch1 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">		<span class="comment">//这里对理解程序很关键 每次循环都产生一个新的Go程</span></span><br><span class="line">		<span class="comment">//这个Go程与当前的素数prime绑定，用于监测数据源是否</span></span><br><span class="line">		<span class="comment">//可以被这个素数整除。要注意的是，因为Filter内有一个</span></span><br><span class="line">		<span class="comment">//无限循环，因此这个Go程一旦产生就会不停运行下去</span></span><br><span class="line">		<span class="keyword">go</span> Filter(prime, ch, ch1)</span><br><span class="line">		ch = ch1</span><br><span class="line"></span><br><span class="line">		<span class="comment">//为了更好的观察数据输出 每次循环暂停一秒</span></span><br><span class="line">		time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>解析这个素数生成器：</p>
-<ol>
-<li><p>Generate函数产生用于筛选的数据源，从最小的素数2开始递增，将产生的数据通过通道变量ch传递出去；</p>
-</li>
-<li><p>Filter函数起到过滤器的作用，prime是和这个Filter函数绑定的素数，用于判断从in的channel传入的数据是否能被prime整除，如果能整除，说明不是素数；如果不能整除，说明通过了这个过滤器的筛选，通过out的channel继续传递给下一个过滤器；</p>
-</li>
-<li><p><strong>理解这个素数生成器的关键就是，在main函数的for无限循环中，每次执行go Filter(prime, ch, ch1)，就会生成一个上面第2点所说的过滤器，一直运行于后台，接收从上一个过滤器Filter传过来的数据，判断之后将有效的数据传给下一个过滤器。接收的数据溯源到开始处，就是Generate函数产生的数据源，传给和素数2绑定的第一个过滤器，之后依次传递，依次通过目前已有的全部过滤器，如果全部通过了，则说明这个数就是下一个素数。每次for循环里进行到prime := &lt;-ch的时候，这时候ch都是当前的最后一个通道，通过这个通道输出素数</strong>；</p>
-</li>
-<li><p>这个程序很好的展示了，Goroutines之间通过channel类型变量通信来共享内存(被传递的数)的过程，从而演示了Go语言的并发编程。数据在Goroutine之间通过channel依次传递的过程，和Unix pipelines完美匹配，所以说虽然具体实现上有差别（具体实现后面文章会讲到），不过Go语言的并发可以看做是Unix pipelines的一种类型安全的实现。</p>
-</li>
-</ol>
-<p>本文以素数生成器为例，初探了Go语言的并发机制，重点在于”通过通信来共享内存”的中心思想的阐述。当然，Go语言的并发机制还有很多可讨论学习的方面，在后面的文章中会详细探讨。</p>
-
-          
+          <p>并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/07/10/初探Go语言的并发机制--以素数生成器为例/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
