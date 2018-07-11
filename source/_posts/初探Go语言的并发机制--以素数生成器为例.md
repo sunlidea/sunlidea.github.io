@@ -5,6 +5,8 @@ tags:
 ---
 并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。
 
+<!-- more -->
+
 ## 通过沟通共享内存
 
 >"Do not communicate by sharing memory; instead, share memory by communicating."
@@ -138,13 +140,4 @@ func main() {
 4. 这个程序很好的展示了，Goroutines之间通过channel类型变量通信来共享内存(被传递的数)的过程，从而演示了Go语言的并发编程。数据在Goroutine之间通过channel依次传递的过程，和Unix pipelines完美匹配，所以说虽然具体实现上有差别（具体实现后面文章会讲到），不过Go语言的并发可以看做是Unix pipelines的一种类型安全的实现。
 
 本文以素数生成器为例，初探了Go语言的并发机制，重点在于"通过通信来共享内存"的中心思想的阐述。当然，Go语言的并发机制还有很多可讨论学习的方面，在后面的文章中会详细探讨。
-
-
-
-
-
-
-
-
-
 
