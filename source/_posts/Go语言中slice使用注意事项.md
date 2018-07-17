@@ -230,7 +230,7 @@ func main() {
 
 如上所示，这种情况主要用来与第三种情况对比，如果append的元素数较多，超过了原来的容量，直接采用了新的底层数组，也就不会影响到a了。
 
-上述的四种情况所用例子都比较简单，所以比较容易看清。要小心如果在函数间传递slice，调用函数采用append进行操作，可能会改变原来的值的，如下所示：
+#### *第五种情况*
 
 ```go
 
@@ -259,6 +259,67 @@ func testAppend(s []int) {
 ```
 [运行示例代码]( https://play.golang.org/p/mvUZkmBW8u)
 
+如上所示。要小心如果在函数间传递slice，调用函数采用append进行操作，可能会改变原来的值的。
+
+#### *第六种情况*
+
+```golang
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	a := make([]int, 0, 2)
+	b := a
+
+	//对a进行append操作 但是不超过原始容量2
+	a = append(a, 1)
+
+	//打印出a b此时的值
+	//a: [1]
+	fmt.Println("a:", a)
+	//b: []
+	fmt.Println("b:", b)
+}
+```
+[运行示例代码](https://play.golang.org/p/-Fc5Nztkj_I)
+
+a，b指向同一个底层数组，对a进行操作，该底层数组的值会发生变化，但是我们回过头看开始slice的定义，slice的定义包含三个方面：底层数组，长度，容量。对a进行append操作后，a的长度变成了1，所以打印出来的时候出来结果[1];
+
+但是此时b指向的底层数组本身虽然变化了，可是b的长度仍然是0，所以此时打印b，会出来结果[]
+
+**理解这个结果的关键是：a和b虽然指向同一个底层数组，可是长度和容量却是各自持有的独立的因素，不会互相影响.**
+
+给出上面这些实例之后，给大家出个小小的测试题，看看大家是否真正对slice类型有了比较清晰的认识，下面这个程序输出的a,b结果是多少呢？
+运行程序，看和自己想的结果是否相同。
+
+```golang
+
+package main
+
+import (
+	"fmt"
+)
+
+func main() {
+
+	a := make([]int, 0, 2)
+	b := a
+
+	//对a进行append操作 但是不超过原始容量2
+	a = append(a, 1)
+	b = append(b, 2)
+
+	//打印出a b此时的值
+	fmt.Println("a:", a)
+	fmt.Println("b:", b)
+}
+
+```
+[运行示例代码](https://play.golang.org/p/PuOm76PmWRJ)
 
 参考资料:
 
