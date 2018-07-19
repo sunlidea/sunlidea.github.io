@@ -5,7 +5,6 @@ tags:
 - Golang
 categories:
 - Golang
-type: "tags"
 ---
 并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。
 
