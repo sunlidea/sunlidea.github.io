@@ -2,6 +2,10 @@
 title: Go语言中slice使用注意事项
 date: 2018-06-28 17:39:34
 tags:
+- Golang
+categories:
+- Golang
+type: "tags"
 ---
 Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。
 ### slice定义
