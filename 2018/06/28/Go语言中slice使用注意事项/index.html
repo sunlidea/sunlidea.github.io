@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Golang," />
 
 
 
@@ -80,13 +80,14 @@
 
 
 <meta name="description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
+<meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言中slice使用注意事项">
 <meta property="og:url" content="http://yoursite.com/2018/06/28/Go语言中slice使用注意事项/index.html">
 <meta property="og:site_name" content="sunlidea">
 <meta property="og:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-16T11:18:09.000Z">
+<meta property="og:updated_time" content="2018-07-19T10:54:12.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言中slice使用注意事项">
 <meta name="twitter:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
@@ -190,6 +191,16 @@
         </li>
       
         
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -227,7 +238,7 @@
   
   
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  <article class="post post-type-tags" itemscope itemtype="http://schema.org/Article">
   
   
   
@@ -271,6 +282,28 @@
             
           </span>
 
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -379,6 +412,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+        </div>
+      
 
       
       
@@ -480,7 +519,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -489,6 +546,12 @@
 
           
             <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sunlidea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
                 
                   <span class="links-of-author-item">
                     <a href="mailto:notifysunli@gmail.com" target="_blank" title="E-Mail">
