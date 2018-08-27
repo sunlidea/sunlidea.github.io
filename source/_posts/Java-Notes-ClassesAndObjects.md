@@ -81,6 +81,8 @@ categories:
 
 <!-- /TOC -->
 
+<!-- more -->
+
 ## Classes
 
 ### 定义类 Declaring Classes
