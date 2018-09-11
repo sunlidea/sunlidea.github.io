@@ -79,13 +79,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="sunlidea">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="GO pprofProfiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。 本文详细介绍Profiling工具的使用。 资料1资料1 可以通过两种方式获取分析数据，一种是利用go test测试程序，另一种就是直接调用net /http/pprof包对程序进行分析。Go运行时(runtime)按照">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go pprof">
+<meta property="og:url" content="http://yoursite.com/post/golang-pprof">
 <meta property="og:site_name" content="sunlidea">
+<meta property="og:description" content="GO pprofProfiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。 本文详细介绍Profiling工具的使用。 资料1资料1 可以通过两种方式获取分析数据，一种是利用go test测试程序，另一种就是直接调用net /http/pprof包对程序进行分析。Go运行时(runtime)按照">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-11T09:28:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sunlidea">
+<meta name="twitter:title" content="go pprof">
+<meta name="twitter:description" content="GO pprofProfiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。 本文详细介绍Profiling工具的使用。 资料1资料1 可以通过两种方式获取分析数据，一种是利用go test测试程序，另一种就是直接调用net /http/pprof包对程序进行分析。Go运行时(runtime)按照">
 
 
 
@@ -115,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/post/golang-pprof"/>
 
 
 
 
 
-  <title>sunlidea</title>
+  <title>go pprof | sunlidea</title>
   
 
 
@@ -140,8 +144,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -234,258 +237,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/java-notes-classes-and-objects">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sunlidea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/java-notes-classes-and-objects" itemprop="url">Java Notes-ClassesAndObjects</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T10:57:04+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Java/" itemprop="url" rel="index">
-                    <span itemprop="name">Java</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>本文是学习Oracle The Java Tutorials中ClassesAndObjects篇章的笔记，记录了中间重点的内容，也方便后面自己查阅。</p>
-<hr>
-<!-- TOC -->
-<ul>
-<li><a href="#classes">Classes</a><ul>
-<li><a href="#定义类-declaring-classes">定义类 Declaring Classes</a></li>
-<li><a href="#定义成员变量-declaring-member-variables">定义成员变量 Declaring Member Variables</a><ul>
-<li><a href="#访问修饰符access-modifiers">访问修饰符Access Modifiers</a></li>
-</ul>
-</li>
-<li><a href="#定义方法-defining-methods">定义方法 Defining Methods</a><ul>
-<li><a href="#方法命名">方法命名</a></li>
-<li><a href="#方法重载">方法重载</a></li>
-</ul>
-</li>
-<li><a href="#为类提供构造函数">为类提供构造函数</a></li>
-<li><a href="#将信息传递给方法method或构造函数constructor">将信息传递给方法method或构造函数constructor</a><ul>
-<li><a href="#任意数量的参数">任意数量的参数</a></li>
-<li><a href="#传递原始数据类型的参数">传递原始数据类型的参数</a></li>
-<li><a href="#传递引用数据类型的参数">传递引用数据类型的参数</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#objects">Objects</a><ul>
-<li><a href="#创建对象creating-objects">创建对象Creating Objects</a><ul>
-<li><a href="#定义一个引用对象object的变量">定义一个引用对象Object的变量</a></li>
-<li><a href="#实例化一个类class">实例化一个类class</a></li>
-<li><a href="#初始化一个对象">初始化一个对象</a></li>
-</ul>
-</li>
-<li><a href="#使用对象-using-objects">使用对象 Using Objects</a><ul>
-<li><a href="#引用一个对象的字段fields">引用一个对象的字段fields</a></li>
-<li><a href="#调用一个对象的方法">调用一个对象的方法</a></li>
-<li><a href="#垃圾回收器-the-garbage-collector">垃圾回收器 The Garbage Collector</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li><a href="#关于类的更多方面-more-on-classes">关于类的更多方面 More on Classes</a><ul>
-<li><a href="#从一个方法中返回一个值-returning-a-value-from-a-method">从一个方法中返回一个值 Returning a Value from a Method</a><ul>
-<li><a href="#返回一个类class或者接口interface">返回一个类Class或者接口Interface</a></li>
-</ul>
-</li>
-<li><a href="#使用this关键字-using-the-this-keyword">使用this关键字 Using the this Keyword</a><ul>
-<li><a href="#using-this-with-a-field">Using this with a Field</a></li>
-<li><a href="#using-this-with-a-constructor">Using this with a Constructor</a></li>
-</ul>
-</li>
-<li><a href="#控制对类成员的访问">控制对类成员的访问</a></li>
-<li><a href="#理解类成员-understanding-class-members">理解类成员 Understanding Class Members</a><ul>
-<li><a href="#类变量-class-variables">类变量 Class Variables</a></li>
-<li><a href="#类方法-class-methods">类方法 Class Methods</a></li>
-</ul>
-</li>
-<li><a href="#常量constants">常量Constants</a></li>
-<li><a href="#初始化字段-initializing-fields">初始化字段 Initializing Fields</a><ul>
-<li><a href="#静态初始化块"><em>静态初始化块???</em></a></li>
-<li><a href="#初始化实例成员-initializing-instance-members">初始化实例成员 Initializing Instance Members</a></li>
-</ul>
-</li>
-<li><a href="#关于创建和使用类和对象的总结">关于创建和使用类和对象的总结</a></li>
-</ul>
-</li>
-<li><a href="#嵌套类-nested-classes">嵌套类 Nested Classes</a><ul>
-<li><a href="#为什么使用嵌套类">为什么使用嵌套类</a></li>
-<li><a href="#静态嵌套类-static-nested-classes">静态嵌套类 Static Nested Classes</a></li>
-<li><a href="#内部类-inner-classes">内部类 Inner Classes</a></li>
-<li><a href="#屏蔽shadowing">屏蔽Shadowing</a></li>
-<li><a href="#序列化-serialization">序列化 Serialization</a></li>
-<li><a href="#内部类例子">内部类例子</a></li>
-<li><a href="#局部类-local-classes">局部类 Local Classes</a><ul>
-<li><a href="#定义局部类declaring-local-classes">定义局部类Declaring Local Classes</a></li>
-<li><a href="#获取封闭类的成员-accessing-members-of-an-enclosing-class">获取封闭类的成员 Accessing Members of an Enclosing Class</a></li>
-<li><a href="#局部类与内部类相似local-classes-are-similar-to-inner-classes">局部类与内部类相似Local Classes Are Similar To Inner Classes</a></li>
-</ul>
-</li>
-<li><a href="#匿名类-anonymous-classes">匿名类 Anonymous Classes</a><ul>
-<li><a href="#定义匿名类-declaring-anonymous-classes">定义匿名类 Declaring Anonymous Classes</a></li>
-<li><a href="#匿名类的语法">匿名类的语法</a></li>
-<li><a href="#访问封闭范围的本地变量以及声明和访问匿名类的成员">访问封闭范围的本地变量，以及声明和访问匿名类的成员</a></li>
-<li><a href="#匿名类的例子">匿名类的例子</a></li>
-</ul>
-</li>
-<li><a href="#匿名函数表达式-lambda-expressions">匿名函数表达式 Lambda Expressions</a><ul>
-<li><a href="#lambda表达式的理想用例">Lambda表达式的理想用例</a></li>
-<li><a href="#lambda表达式的语法">Lambda表达式的语法</a></li>
-<li><a href="#访问封闭范围的局部变量">访问封闭范围的局部变量</a></li>
-<li><a href="#目标类型target-typing">目标类型Target Typing</a></li>
-</ul>
-</li>
-<li><a href="#方法引用-method-references">方法引用 Method References</a><ul>
-<li><a href="#静态方法的引用-reference-to-a-static-method">静态方法的引用 Reference to a static method</a></li>
-<li><a href="#引用特定对象的实例方法-reference-to-an-instance-method-of-a-particular-object">引用特定对象的实例方法 Reference to an Instance Method of a Particular Object</a></li>
-<li><a href="#对特定类型的任意对象的实例方法的引用-reference-to-an-instance-method-of-an-arbitrary-object-of-a-particular-type">对特定类型的任意对象的实例方法的引用 Reference to an Instance Method of an Arbitrary Object of a Particular Type</a></li>
-<li><a href="#对构造函数的引用-reference-to-a-constructor">对构造函数的引用 Reference to a Constructor</a></li>
-</ul>
-</li>
-<li><a href="#何时使用嵌套类nested-classes局部类local-classes匿名类anonymous-classes和lambda表达式">何时使用嵌套类Nested Classes，局部类Local Classes，匿名类Anonymous Classes和Lambda表达式</a></li>
-</ul>
-</li>
-<li><a href="#枚举类型">枚举类型</a></li>
-</ul>
-<!-- /TOC -->
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/post/java-notes-classes-and-objects#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
 
   
 
@@ -515,9 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/golang-pprof" itemprop="url">go pprof</a></h1>
+          <h1 class="post-title" itemprop="name headline">go pprof</h1>
         
 
         <div class="post-meta">
@@ -567,9 +319,7 @@
       
 
       
-        
-          
-            <h1 id="GO-pprof"><a href="#GO-pprof" class="headerlink" title="GO pprof"></a>GO pprof</h1><p>Profiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。</p>
+        <h1 id="GO-pprof"><a href="#GO-pprof" class="headerlink" title="GO pprof"></a>GO pprof</h1><p>Profiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。</p>
 <p>本文详细介绍Profiling工具的使用。</p>
 <h2 id="资料1"><a href="#资料1" class="headerlink" title="资料1"></a>资料1</h2><p><a href="https://golang.org/doc/diagnostics.html#profiling" target="_blank" rel="noopener">资料1</a></p>
 <p>可以通过两种方式获取分析数据，一种是利用go test测试程序，另一种就是直接调用net /http/pprof包对程序进行分析。Go运行时(runtime)按照pprof可视化工具所期望的格式提供分析数据。</p>
@@ -607,8 +357,6 @@
 <p>The runtime routines allow a variable profiling rate,<br>but in practice operating systems cannot trigger signals at more than about 500 Hz, and our processing of the signal is not cheap (mostly getting the stack trace).<br>100 Hz is a reasonable choice: it is frequent enough to produce useful data, rare enough not to bog down the<br>system, and a nice round number to make it easy to<br>convert sample counts to seconds. Instead of requiring<br>each client to specify the frequency, we hard code it.</p>
 </blockquote>
 
-          
-        
       
     </div>
     
@@ -625,158 +373,32 @@
       
 
       
-
-      
-
       
       
-        <div class="post-eof"></div>
+
       
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-concurrency-1">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sunlidea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/golang-concurrency-1" itemprop="url">以素数生成器为例阐述Go语言的并发机制</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-10T18:03:28+08:00">
-                2018-07-10
-              </time>
+              <a href="/post/golang-concurrency-1" rel="next" title="以素数生成器为例阐述Go语言的并发机制">
+                <i class="fa fa-chevron-left"></i> 以素数生成器为例阐述Go语言的并发机制
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
+              <a href="/post/java-notes-classes-and-objects" rel="prev" title="Java Notes-ClassesAndObjects">
+                Java Notes-ClassesAndObjects <i class="fa fa-chevron-right"></i>
+              </a>
             
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          <p>并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/post/golang-concurrency-1#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -786,164 +408,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-slice-trap">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sunlidea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/golang-slice-trap" itemprop="url">Go语言中slice使用注意事项</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T17:39:34+08:00">
-                2018-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。</p>
-<h3 id="slice定义"><a href="#slice定义" class="headerlink" title="slice定义"></a>slice定义</h3><p>Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:</p>
-<ol>
-<li>指向底层数组的指针</li>
-<li>slice目前使用到的底层数组的元素个数，即长度</li>
-<li>底层数组的最大长度，即容量</li>
-</ol>
-<p>因此当我们定义如下一个切片变量<br><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">s := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">5</span>, <span class="number">10</span>)</span><br></pre></td></tr></table></figure></p>
-<p>s即为指向了一个最大长度为10的底层数组，目前切片s使用到的长度为5。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/post/golang-slice-trap#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -951,6 +420,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -971,8 +444,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -1048,6 +530,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#GO-pprof"><span class="nav-number">1.</span> <span class="nav-text">GO pprof</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资料1"><span class="nav-number">1.1.</span> <span class="nav-text">资料1</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#除了原生的pprof工具，还有哪些分析器可以来分析Go程序？"><span class="nav-number">1.1.1.</span> <span class="nav-text">除了原生的pprof工具，还有哪些分析器可以来分析Go程序？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可以在生产环境中启用分析工具吗？"><span class="nav-number">1.1.2.</span> <span class="nav-text">可以在生产环境中启用分析工具吗？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#可视化分析数据的最好方式？"><span class="nav-number">1.1.3.</span> <span class="nav-text">可视化分析数据的最好方式？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#什么是Profile"><span class="nav-number">1.1.4.</span> <span class="nav-text">什么是Profile</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#heap-Profile"><span class="nav-number">1.1.4.1.</span> <span class="nav-text">heap Profile</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#cpu-profile的特殊性？？"><span class="nav-number">1.1.4.2.</span> <span class="nav-text">cpu profile的特殊性？？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#是否只能使用内置配置文件？"><span class="nav-number">1.1.4.3.</span> <span class="nav-text">是否只能使用内置配置文件？</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#资料二"><span class="nav-number">1.2.</span> <span class="nav-text">资料二</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#CPU-profile"><span class="nav-number">1.2.1.</span> <span class="nav-text">CPU profile</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -1181,6 +679,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 

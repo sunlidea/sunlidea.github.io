@@ -83,11 +83,11 @@
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="以素数生成器为例阐述Go语言的并发机制">
-<meta property="og:url" content="http://yoursite.com/2018/07/10/初探Go语言的并发机制--以素数生成器为例/index.html">
+<meta property="og:url" content="http://yoursite.com/post/golang-concurrency-1">
 <meta property="og:site_name" content="sunlidea">
 <meta property="og:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T11:03:22.000Z">
+<meta property="og:updated_time" content="2018-09-11T09:26:17.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="以素数生成器为例阐述Go语言的并发机制">
 <meta name="twitter:description" content="并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/10/初探Go语言的并发机制--以素数生成器为例/"/>
+  <link rel="canonical" href="http://yoursite.com/post/golang-concurrency-1"/>
 
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/10/初探Go语言的并发机制--以素数生成器为例/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-concurrency-1">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
@@ -434,7 +434,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/28/Go语言中slice使用注意事项/" rel="next" title="Go语言中slice使用注意事项">
+              <a href="/post/golang-slice-trap" rel="next" title="Go语言中slice使用注意事项">
                 <i class="fa fa-chevron-left"></i> Go语言中slice使用注意事项
               </a>
             
@@ -444,7 +444,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/15/go-pprof/" rel="prev" title="go pprof">
+              <a href="/post/golang-pprof" rel="prev" title="go pprof">
                 go pprof <i class="fa fa-chevron-right"></i>
               </a>
             

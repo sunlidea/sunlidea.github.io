@@ -83,11 +83,11 @@
 <meta name="keywords" content="Golang">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言中slice使用注意事项">
-<meta property="og:url" content="http://yoursite.com/2018/06/28/Go语言中slice使用注意事项/index.html">
+<meta property="og:url" content="http://yoursite.com/post/golang-slice-trap">
 <meta property="og:site_name" content="sunlidea">
 <meta property="og:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-07-19T11:02:58.000Z">
+<meta property="og:updated_time" content="2018-09-11T09:24:44.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言中slice使用注意事项">
 <meta name="twitter:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/28/Go语言中slice使用注意事项/"/>
+  <link rel="canonical" href="http://yoursite.com/post/golang-slice-trap"/>
 
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/28/Go语言中slice使用注意事项/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-slice-trap">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
@@ -443,7 +443,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/07/10/初探Go语言的并发机制--以素数生成器为例/" rel="prev" title="以素数生成器为例阐述Go语言的并发机制">
+              <a href="/post/golang-concurrency-1" rel="prev" title="以素数生成器为例阐述Go语言的并发机制">
                 以素数生成器为例阐述Go语言的并发机制 <i class="fa fa-chevron-right"></i>
               </a>
             
