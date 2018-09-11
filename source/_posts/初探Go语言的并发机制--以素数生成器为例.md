@@ -1,5 +1,6 @@
 ---
 title: 以素数生成器为例阐述Go语言的并发机制
+urlname: golang-concurrency-1
 date: 2018-07-10 18:03:28
 tags:
 - Golang

@@ -1,5 +1,6 @@
 ---
 title: Java Notes-ClassesAndObjects
+urlname: java-notes-classes-and-objects
 date: 2018-08-27 10:57:04
 tags: 
 - Java

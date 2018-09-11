@@ -1,5 +1,6 @@
 ---
 title: Go语言中slice使用注意事项
+urlname: golang-slice-trap
 date: 2018-06-28 17:39:34
 tags:
 - Golang
