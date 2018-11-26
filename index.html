@@ -341,24 +341,15 @@
 
       
         
-          
-            <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>定时器(Timer Facility)被用于处理延时任务。</p>
+          <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>定时器(Timer Facility)被用于处理延时任务。</p>
 <p>有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。</p>
-<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>最小堆指的是满足除了根节点以外的每个节点都不小于其父节点的堆。这样，堆中的最小值就存放在根节点中，并且在以某个结点为根的子树中，各节点的值都不小于该子树根节点的值。</p>
-<p>最小堆其实就是最小优先队列，将新的定时器添加到堆中，根据绝对到期时间完成最小堆的有序化。</p>
-<p>在每个时钟周期比较堆顶的定时器的到期时间和当前的时钟，如果定时器的到期时间是小于当前时间，则执行并删除到期定时器; 继续这样做这样的比较，直到堆顶包含一个过期时间大于当前时间的计时器。</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>基于最小堆的定时器包含的操作包括</p>
-<ul>
-<li>插入定时器。该操作的时间复杂度为O(lgn)</li>
-<li>获取最先超时的定时器。由于是最小堆，只需返回堆的root即可，此时的算法复杂度为O(1) 。</li>
-<li>在定时器到期后，执行相关的动作，它的算法复杂度为 O(1) 。</li>
-</ul>
-<h2 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h2><p>具体的Golang实现如下</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> timer</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">	<span class="string">"container/heap"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//定义定时器基本的处理单元</span></span><br><span class="line"><span class="keyword">type</span> Timer <span class="keyword">struct</span> &#123;</span><br><span class="line">	id        <span class="keyword">int64</span>                 <span class="comment">//唯一id</span></span><br><span class="line">	index     <span class="keyword">int</span>                   <span class="comment">//方便调用heap.Fix和heap.Remove</span></span><br><span class="line">	expired   time.Time             <span class="comment">//过期的绝对时间</span></span><br><span class="line">	onTimeOut <span class="function"><span class="keyword">func</span><span class="params">(time.Time)</span> <span class="title">error</span> //过期时的处理事件</span></span><br><span class="line"><span class="function">&#125;</span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="title">func</span> <span class="title">NewTimer</span><span class="params">(id <span class="keyword">int64</span>, expired time.Time, onTimeOut <span class="keyword">func</span>(time.Time)</span> <span class="title">error</span>) *<span class="title">Timer</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> &amp;Timer&#123;</span><br><span class="line">		id: id,</span><br><span class="line">		expired:expired,</span><br><span class="line">		onTimeOut:onTimeOut,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//基于container/heap包实现的基于过期时间的优先队列</span></span><br><span class="line"><span class="keyword">type</span> TimerQueue []*Timer</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tq TimerQueue)</span> <span class="title">Len</span><span class="params">()</span> <span class="title">int</span></span> &#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="built_in">len</span>(tq)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tq TimerQueue)</span> <span class="title">Less</span><span class="params">(i, j <span class="keyword">int</span>)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> tq[i].expired.Before(tq[j].expired) &#123;</span><br><span class="line">		<span class="comment">//过期早的在堆的上面，堆的最顶层就是过期时间最早的一个</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">	&#125; <span class="keyword">else</span> <span class="keyword">if</span> tq[i].expired.After(tq[j].expired) &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="comment">//如果时间相等  为了实现稳定排序  再基于id排一次</span></span><br><span class="line">		<span class="keyword">return</span> tq[i].id &lt; tq[j].id</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tq TimerQueue)</span> <span class="title">Swap</span><span class="params">(i, j <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	tq[i], tq[j] = tq[j], tq[i]</span><br><span class="line"></span><br><span class="line">	<span class="comment">//要再上面的交换之后 给index赋予正确的值</span></span><br><span class="line">	tq[i].index = i</span><br><span class="line">	tq[j].index = j</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//实现Push和Pop</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tq *TimerQueue)</span> <span class="title">Push</span><span class="params">(x <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">	n := <span class="built_in">len</span>(*tq)</span><br><span class="line">	item := x.(*Timer)</span><br><span class="line">	item.index = n</span><br><span class="line">	*tq = <span class="built_in">append</span>(*tq, item)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//之所以要将新加入的元素赋给最后一个元素，是因为heap.Push()接口的实现是先调用这个自定义的Push()</span></span><br><span class="line">	<span class="comment">//再调用了up方法将最后一个元素上浮至合适的位置</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(tq *TimerQueue)</span> <span class="title">Pop</span><span class="params">()</span> <span class="title">interface</span></span>&#123;&#125; &#123;</span><br><span class="line">	old := *tq</span><br><span class="line">	n := <span class="built_in">len</span>(old)</span><br><span class="line">	<span class="keyword">if</span> n &gt; <span class="number">0</span> &#123;</span><br><span class="line">		item := old[n<span class="number">-1</span>]</span><br><span class="line">		item.index = <span class="number">-1</span></span><br><span class="line">		*tq = old[<span class="number">0</span> : n<span class="number">-1</span>]</span><br><span class="line">		<span class="keyword">return</span> item</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//之所以要取出最后一个元素，是因为heap.Pop()接口的实现是先把heap的顶部元素交换到最后一个元素，</span></span><br><span class="line">	<span class="comment">//再对除了最后一个元素的前面的元素重新排序为堆，之后调用自定义的Pop()</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> TimerFacility <span class="keyword">struct</span> &#123;</span><br><span class="line">	timerQueue TimerQueue         <span class="comment">//优先队列</span></span><br><span class="line">	ticker     *time.Ticker       <span class="comment">//检查任务过期的基本时间间隔</span></span><br><span class="line">	addTimer   <span class="keyword">chan</span> *Timer</span><br><span class="line">	timers     <span class="keyword">map</span>[<span class="keyword">int64</span>]*Timer   <span class="comment">//定时任务集合</span></span><br><span class="line">	workLimit  <span class="keyword">chan</span> *<span class="keyword">interface</span>&#123;&#125;  <span class="comment">//控制并发任务的最大量</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">NewTimerFacility</span><span class="params">(d time.Duration)</span> *<span class="title">TimerFacility</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	tf := &amp;TimerFacility&#123;</span><br><span class="line">		timerQueue: TimerQueue&#123;&#125;,</span><br><span class="line">		ticker:     time.NewTicker(d),</span><br><span class="line">		addTimer:   <span class="built_in">make</span>(<span class="keyword">chan</span> *Timer, <span class="number">2000</span>),</span><br><span class="line">		timers:     <span class="built_in">make</span>(<span class="keyword">map</span>[<span class="keyword">int64</span>]*Timer),</span><br><span class="line">		workLimit:  <span class="built_in">make</span>(<span class="keyword">chan</span> *<span class="keyword">interface</span>&#123;&#125;, <span class="number">2000</span>),</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="comment">//初始化队列</span></span><br><span class="line">	heap.Init(&amp;tf.timerQueue)</span><br><span class="line">	<span class="comment">//启动</span></span><br><span class="line">	tf.Start()</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> tf</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//启动定时器</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(self *TimerFacility)</span> <span class="title">Start</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">for</span> &#123;</span><br><span class="line">			<span class="keyword">select</span> &#123;</span><br><span class="line">			<span class="keyword">case</span> &lt;-self.ticker.C:</span><br><span class="line">				<span class="comment">//若定时器到了</span></span><br><span class="line">				<span class="comment">//处理过期的元素</span></span><br><span class="line">				self.onExpire()</span><br><span class="line">			<span class="keyword">case</span> t := &lt;-self.addTimer:</span><br><span class="line">				<span class="keyword">if</span> _, ok := self.timers[t.id]; !ok &#123;</span><br><span class="line">					self.timers[t.id] = t</span><br><span class="line">					heap.Push(&amp;self.timerQueue, t)</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//移出timer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(self *TimerFacility)</span> <span class="title">RemoveTimer</span><span class="params">(id <span class="keyword">int64</span>)</span> *<span class="title">Timer</span></span> &#123;</span><br><span class="line">	<span class="keyword">if</span> _, ok := self.timers[id]; !ok &#123;</span><br><span class="line">		<span class="comment">//找不到的话  当做已移出处理</span></span><br><span class="line">		<span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	t := self.timers[id]</span><br><span class="line">	<span class="comment">//从任务集合中删除</span></span><br><span class="line">	<span class="built_in">delete</span>(self.timers, id)</span><br><span class="line">	<span class="comment">//从队列中移出</span></span><br><span class="line">	heap.Remove(&amp;self.timerQueue, t.index)</span><br><span class="line">	<span class="keyword">return</span> t</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//增加timer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(self *TimerFacility)</span> <span class="title">AddTimer</span><span class="params">(t *Timer)</span></span> &#123;</span><br><span class="line">	self.addTimer &lt;- t</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//处理过期的timer</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(self *TimerFacility)</span> <span class="title">onExpire</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> self.timerQueue.Len() &lt;= <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">//如果已经没有元素了</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//当前时间</span></span><br><span class="line">		now := time.Now()</span><br><span class="line">		<span class="comment">//得到具有最小过期时间的堆顶元素</span></span><br><span class="line">		expired := self.timerQueue[<span class="number">0</span>].expired</span><br><span class="line">		<span class="keyword">if</span> expired.After(now) &#123;</span><br><span class="line">			<span class="comment">//如果还没过期</span></span><br><span class="line">			<span class="keyword">break</span></span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//依次从顶部取出当前最小过期时间的timer</span></span><br><span class="line">		t := heap.Pop(&amp;self.timerQueue).(*Timer)</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> t.onTimeOut != <span class="literal">nil</span> &#123;</span><br><span class="line">			<span class="comment">//加入处理队列</span></span><br><span class="line">			self.workLimit &lt;- <span class="literal">nil</span></span><br><span class="line">			<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">				<span class="comment">//异步处理过期</span></span><br><span class="line">				<span class="keyword">defer</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">					&lt;-self.workLimit</span><br><span class="line">				&#125;()</span><br><span class="line">				t.onTimeOut(now)</span><br><span class="line">			&#125;()</span><br><span class="line">		&#125;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//删除元素</span></span><br><span class="line">		<span class="built_in">delete</span>(self.timers, t.id)</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.ibm.com/developerworks/cn/linux/l-cn-timers/" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/linux/l-cn-timers/</a></p>
-<p><a href="http://www.lpnote.com/2017/11/16/hashed-and-hierarchical-timing-wheels/" target="_blank" rel="noopener">http://www.lpnote.com/2017/11/16/hashed-and-hierarchical-timing-wheels/</a></p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/timer-by-heap.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -873,162 +864,6 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-pprof.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sunlidea">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/golang-pprof.html" itemprop="url">go pprof</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-15T14:56:54+08:00">
-                2018-08-15
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="GO-pprof"><a href="#GO-pprof" class="headerlink" title="GO pprof"></a>GO pprof</h1><p>Profiling工具是Go语言原生的程序分析工具之一，常用来分析Go程序的复杂性和成本，例如其内存使用情况和经常调用的函数，以识别出Go程序中开销比较大的部分。</p>
-<p>本文详细介绍Profiling工具的使用。</p>
-<h2 id="资料1"><a href="#资料1" class="headerlink" title="资料1"></a>资料1</h2><p><a href="https://golang.org/doc/diagnostics.html#profiling" target="_blank" rel="noopener">资料1</a></p>
-<p>可以通过两种方式获取分析数据，一种是利用go test测试程序，另一种就是直接调用net /http/pprof包对程序进行分析。Go运行时(runtime)按照pprof可视化工具所期望的格式提供分析数据。</p>
-<p>runtime/pprof包提供了下面几种预定义的分析配置文件Profile：</p>
-<ul>
-<li><p>cpu：CPU配置文件确定哪一部分程序主动消耗CPU资源（而不是在休眠或等待I/O时）。</p>
-</li>
-<li><p>heap：堆配置文件报告内存分配样本;用于监视当前和历史内存使用情况，以及检查内存泄漏。</p>
-</li>
-<li><p>threadcreate：线程创建配置文件报告哪一部分程序导致了新OS线程的创建。</p>
-</li>
-<li><p>goroutine：Goroutine配置文件报告了所有当前goroutine的堆栈跟踪。</p>
-</li>
-<li><p>block：block配置文件显示goroutine阻塞等待同步原语（包括定时器通道）的位置。默认情况下该配置文件不启用;可以调用runtime.SetBlockProfileRate启用它。</p>
-</li>
-<li><p>mutex：互斥配置文件报告锁的争用。如果你认为由于互斥争用而未充分利用CPU，可以使用此配置文件。默认情况下不启用互斥配置文件，请参阅runtime.SetMutexProfileFraction以启用它。</p>
-</li>
-</ul>
-<h3 id="除了原生的pprof工具，还有哪些分析器可以来分析Go程序？"><a href="#除了原生的pprof工具，还有哪些分析器可以来分析Go程序？" class="headerlink" title="除了原生的pprof工具，还有哪些分析器可以来分析Go程序？"></a>除了原生的pprof工具，还有哪些分析器可以来分析Go程序？</h3><p>在Linux上，perf工具可用于分析Go程序。 Perf可以剖析和展开cgo / SWIG代码和内核，因此深入了解本机/内核性能瓶颈非常有用。在macOS上，Instruments套件可以使用profile Go程序。</p>
-<h3 id="可以在生产环境中启用分析工具吗？"><a href="#可以在生产环境中启用分析工具吗？" class="headerlink" title="可以在生产环境中启用分析工具吗？"></a>可以在生产环境中启用分析工具吗？</h3><p>是。在生产中对程序进行概要分析是安全的，但启用某些配置文件（例如CPU配置文件）会增加成本。您应该会看到性能降级。可以通过在生产中打开探测器之前测量探测器的开销来估计性能损失。</p>
-<p>您可能希望定期分析您的生产服务。特别是在具有单个过程的许多副本的系统中，定期选择随机副本是安全的选择。选择一个生产过程，每隔Y秒将其分析X秒并保存结果以进行可视化和分析;然后定期重复。可以手动和/或自动检查结果以发现问题。配置文件的收集可能会相互干扰，因此建议一次只收集一个配置文件。</p>
-<h3 id="可视化分析数据的最好方式？"><a href="#可视化分析数据的最好方式？" class="headerlink" title="可视化分析数据的最好方式？"></a>可视化分析数据的最好方式？</h3><p>可以利用 go tool pprof提供配置文件数据的文本，图形和callgrind可视化。</p>
-<p>另一种可视化分析数据的方法是火焰图。 火焰图允许特定的祖先路径中移动，因此可以放大/缩小特定的代码段。 <a href="https://github.com/google/pprof" target="_blank" rel="noopener">The upstream pprof</a>已经支持火焰图了。</p>
-<h3 id="什么是Profile"><a href="#什么是Profile" class="headerlink" title="什么是Profile"></a>什么是Profile</h3><p><a href="https://golang.org/pkg/runtime/pprof/#Profile" target="_blank" rel="noopener">profile资料参考</a></p>
-<p>a profile是堆栈跟踪的集合，显示导致特定事件（例如分配）实例的调用序列。包可以创建和维护自己的配置文件;最常见的用途是跟踪必须显式关闭的资源，例如文件或网络连接。</p>
-<h4 id="heap-Profile"><a href="#heap-Profile" class="headerlink" title="heap Profile"></a>heap Profile</h4><p>堆配置文件报告最近完成的垃圾回收的统计信息;它省略了更多最近的分配，以避免将配置文件从实时数据偏向垃圾。如果根本没有垃圾收集，堆配置文件将报告所有已知的分配。此异常主要有助于在没有启用垃圾回收的情况下运行的程序，通常用于调试目的。</p>
-<p>堆配置文件既追踪当前内存中存活的对象，也追踪自程序启动以来分配的所有对象。 Pprof的-inuse_space，-inuse_objects，-alloc_space和-alloc_objects标志选择要显示的内容，默认为-inuse_space。</p>
-<h4 id="cpu-profile的特殊性？？"><a href="#cpu-profile的特殊性？？" class="headerlink" title="cpu profile的特殊性？？"></a>cpu profile的特殊性？？</h4><p>CPU配置文件不可用作配置文件。它有一个特殊的API，StartCPUProfile和StopCPUProfile函数，因为它在分析期间将输出流式传输到writer</p>
-<h4 id="是否只能使用内置配置文件？"><a href="#是否只能使用内置配置文件？" class="headerlink" title="是否只能使用内置配置文件？"></a>是否只能使用内置配置文件？</h4><p>除了运行时runtime提供的之外，用户还可以通过pprof.Profile创建自定义配置文件，并使用现有工具对其进行检查。</p>
-<h2 id="资料二"><a href="#资料二" class="headerlink" title="资料二"></a>资料二</h2><p><a href="https://blog.golang.org/profiling-go-programs" target="_blank" rel="noopener">资料二</a></p>
-<h3 id="CPU-profile"><a href="#CPU-profile" class="headerlink" title="CPU profile"></a>CPU profile</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">(pprof) top10</span><br><span class="line">Total: 2525 samples</span><br><span class="line">     298  11.8%  11.8%      345  13.7% runtime.mapaccess1_fast64</span><br><span class="line">     268  10.6%  22.4%     2124  84.1% main.FindLoops</span><br><span class="line">     251   9.9%  32.4%      451  17.9% scanblock</span><br><span class="line">     178   7.0%  39.4%      351  13.9% hash_insert</span><br><span class="line">     131   5.2%  44.6%      158   6.3% sweepspan</span><br><span class="line">     119   4.7%  49.3%      350  13.9% main.DFS</span><br><span class="line">      96   3.8%  53.1%       98   3.9% flushptrbuf</span><br><span class="line">      95   3.8%  56.9%       95   3.8% runtime.aeshash64</span><br><span class="line">      95   3.8%  60.6%      101   4.0% runtime.settype_flush</span><br><span class="line">      88   3.5%  64.1%      988  39.1% runtime.mallocgc</span><br></pre></td></tr></table></figure>
-<p>如上，是执行havlak1的cpu分析数据。启用CPU分析时，Go程序每秒停止大约100次，并记录一份包含在当前正在执行的goroutine堆栈上的程序计数器的样本。该配置文件有2525个样本，因此运行时间超过25秒。在<code>go tool pprof</code>输出中，样本中出现的每个函数都有一行。前两列显示函数运行的样本数（而不是等待被调用函数返回），作为原始计数和总样本的百分比。 runtime.mapaccess1_fast64函数在298个样本期间运行，或11.8％。 top10输出按此样本计数排序。第三列显示列表期间的运行总计：前三行占样本的32.4％。第四和第五列显示函数出现的样本数（运行或等待被调用的函数返回）。 main.FindLoops函数在10.6％的样本中运行，但是它在84.1％的样本中位于调用堆栈（它或称为运行的函数）上。</p>
-<p>源码对于StartCPUProfile的注释如下，所以采样频率已经被官方硬编码为1秒100次。</p>
-<blockquote>
-<p>The runtime routines allow a variable profiling rate,<br>but in practice operating systems cannot trigger signals at more than about 500 Hz, and our processing of the signal is not cheap (mostly getting the stack trace).<br>100 Hz is a reasonable choice: it is frequent enough to produce useful data, rare enough not to bog down the<br>system, and a nice round number to make it easy to<br>convert sample counts to seconds. Instead of requiring<br>each client to specify the frequency, we hard code it.</p>
-</blockquote>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-concurrency-1.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1399,7 +1234,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
