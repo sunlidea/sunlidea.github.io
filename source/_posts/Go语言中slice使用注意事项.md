@@ -8,25 +8,24 @@ categories:
 - Golang
 ---
 Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。
-### slice定义
+
+## slice定义
+
 Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:
+
 1. 指向底层数组的指针
 2. slice目前使用到的底层数组的元素个数，即长度
 3. 底层数组的最大长度，即容量
 
-因此当我们定义如下一个切片变量
-```go
-s := make([]int, 5, 10)
-```
-s即为指向了一个最大长度为10的底层数组，目前切片s使用到的长度为5。
+因此当我们定义如下一个切片变量 ```s := make([]int, 5, 10)``` s即为指向了一个最大长度为10的底层数组，目前切片s使用到的长度为5。
 
 <!-- more -->
 
 ## 注意事项
+
 基于slice的定义，在使用slice时，有以下几点注意事项：
 
 ### 一. 切分操作
-
 
 对slice进行切分操作会生成一个新的slice变量，新slice和原来的slice指向同一个底层数组，只不过指向的起始位置可能不同，长度及容量可能也不相同。
 
@@ -53,13 +52,13 @@ s即为指向了一个最大长度为10的底层数组，目前切片s使用到�
 	fmt.Println("d ", "len:", len(d), "cap:", cap(d))
 
 ```
+
 [运行示例代码 - slice切分操作](https://play.golang.org/p/3GO0cIbZ9u)
 >本文中出现的示例代码展示于The Go Playground
 
 ### 二. 赋值及函数间传递
 
 #### *第一种情况*
-
 
 ```go
 	a := []int{1, 2, 3, 4, 5}
@@ -72,7 +71,7 @@ s即为指向了一个最大长度为10的底层数组，目前切片s使用到�
 ```
 [运行示例代码](https://play.golang.org/p/lcjiulu-X2)
 
-如上所示，则a, b指向同一个底层数组，且长度及容量因素相同，对b进行的操作会影响到a。 
+如上所示，则a, b指向同一个底层数组，且长度及容量因素相同，对b进行的操作会影响到a。
 
 #### *第二种情况*
 
@@ -88,8 +87,8 @@ func main() {
 func modifySlice(s []int) {
 	s[0] = 10
 }
-
 ```
+
 [运行示例代码](https://play.golang.org/p/ioOXLoAz3W)
 
 如上所示，将slice作为参数在函数间传递的时候是值传递，产生了一个新的slice，只不过新的slice仍然指向原来的底层数组，所以通过新的slice也能改变原来的slice的值。
@@ -118,12 +117,9 @@ func modifySlice(s []int) {
 ### 三. append操作
 
 append操作最容易踩坑，下面详细说明一下。
-- append函数定义:  
-```go
-    func append(s []T, x ...T) []T
-```
- 
-- Append基本原则：对于一个slice变量，若slice容量足够，append直接在原来的底层数组上追加元素到slice上；如果容量不足，append操作会生成一个新的更大容量的底层数组。 
+
+- append函数定义```func append(s []T, x ...T) []T```
+- Append基本原则：对于一个slice变量，若slice容量足够，append直接在原来的底层数组上追加元素到slice上；如果容量不足，append操作会生成一个新的更大容量的底层数组。
 
 #### *第一种情况*
 
@@ -145,6 +141,7 @@ func main() {
 }
 
 ```
+
 [运行示例代码](https://play.golang.org/p/rQQy4u0vCq)
 
 如上所示，对a进行append操作，若append后的新slice的实际元素个数没有超出原来指向的底层数组的容量，所以仍然使用原来的底层数组a, b的第一个值的地址一样, 改变b的前2个元素也会影响到a。
@@ -321,10 +318,10 @@ func main() {
 	fmt.Println("a:", a)
 	fmt.Println("b:", b)
 }
-
 ```
+
 [运行示例代码](https://play.golang.org/p/PuOm76PmWRJ)
 
 参考资料:
 
-https://blog.golang.org/go-slices-usage-and-internals
+<https://blog.golang.org/go-slices-usage-and-internals>
