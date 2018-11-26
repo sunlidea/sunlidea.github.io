@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。">
+<meta name="description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。 原理最小堆指的是满足除了根节点以外的每个节点都不小于其父节点的堆。这样，堆中的最小值就存放在根节点中，并且在以某个结点为根的子树中，各节点的值都不小于该子树根节点的值。 最小堆其实就是最小优先队列，将新的定时器添加到堆">
 <meta name="keywords" content="数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于最小堆的定时器的实现">
 <meta property="og:url" content="http://yoursite.com/post/timer-by-heap.html">
 <meta property="og:site_name" content="sunlidea">
-<meta property="og:description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。">
+<meta property="og:description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。 原理最小堆指的是满足除了根节点以外的每个节点都不小于其父节点的堆。这样，堆中的最小值就存放在根节点中，并且在以某个结点为根的子树中，各节点的值都不小于该子树根节点的值。 最小堆其实就是最小优先队列，将新的定时器添加到堆">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-26T10:22:20.000Z">
+<meta property="og:updated_time" content="2018-11-26T10:44:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于最小堆的定时器的实现">
-<meta name="twitter:description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。">
+<meta name="twitter:description" content="概述定时器(Timer Facility)被用于处理延时任务。 有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。 原理最小堆指的是满足除了根节点以外的每个节点都不小于其父节点的堆。这样，堆中的最小值就存放在根节点中，并且在以某个结点为根的子树中，各节点的值都不小于该子树根节点的值。 最小堆其实就是最小优先队列，将新的定时器添加到堆">
 
 
 
@@ -344,10 +344,10 @@
       
         <h2 id="概述"><a href="#概述" class="headerlink" title="概述"></a>概述</h2><p>定时器(Timer Facility)被用于处理延时任务。</p>
 <p>有多种数据结构和算法可以实现定时器，包括最小堆，哈希轮，分级时间轮等。在这篇文章中主要介绍基于最小堆的定时器的实现。</p>
-<a id="more"></a>
 <h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>最小堆指的是满足除了根节点以外的每个节点都不小于其父节点的堆。这样，堆中的最小值就存放在根节点中，并且在以某个结点为根的子树中，各节点的值都不小于该子树根节点的值。</p>
 <p>最小堆其实就是最小优先队列，将新的定时器添加到堆中，根据绝对到期时间完成最小堆的有序化。</p>
 <p>在每个时钟周期比较堆顶的定时器的到期时间和当前的时钟，如果定时器的到期时间是小于当前时间，则执行并删除到期定时器; 继续这样做这样的比较，直到堆顶包含一个过期时间大于当前时间的计时器。</p>
+<a id="more"></a>
 <h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>基于最小堆的定时器包含的操作包括</p>
 <ul>
 <li>插入定时器。该操作的时间复杂度为O(lgn)</li>
@@ -397,6 +397,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/post/traffic-control-by-token-bucket.html" rel="prev" title="基于令牌桶算法的流量控制">
+                基于令牌桶算法的流量控制 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -473,7 +477,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -484,7 +488,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

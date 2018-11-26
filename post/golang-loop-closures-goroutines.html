@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="sunlidea">
 <meta property="og:description" content="总结这一段时间团队在使用Go语言编程时，遇到最多的问题就是在闭包函数并发处理循环迭代变量时处理不当的问题。所以就想总结下这种情况，查资料时看到Go在Github的wiki页面上有一篇专门介绍该问题的文章，可见这个问题被询问的频率之高。这篇文章总结的挺好的，就把它翻译了下来，留作之后查资料值之用。 原文地址: CommonMistakes 相关资料: closures_and_goroutine">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-29T05:12:46.000Z">
+<meta property="og:updated_time" content="2018-11-26T10:44:40.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="[译]Golang闭包函数并发处理循环迭代变量的问题">
 <meta name="twitter:description" content="总结这一段时间团队在使用Go语言编程时，遇到最多的问题就是在闭包函数并发处理循环迭代变量时处理不当的问题。所以就想总结下这种情况，查资料时看到Go在Github的wiki页面上有一篇专门介绍该问题的文章，可见这个问题被询问的频率之高。这篇文章总结的挺好的，就把它翻译了下来，留作之后查资料值之用。 原文地址: CommonMistakes 相关资料: closures_and_goroutine">
@@ -346,9 +346,9 @@
 <p>原文地址: <a href="https://github.com/golang/go/wiki/CommonMistakes" target="_blank" rel="noopener">CommonMistakes</a></p>
 <p>相关资料: <a href="https://golang.org/doc/faq#closures_and_goroutines" target="_blank" rel="noopener">closures_and_goroutines</a></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>当新手程序员开始使用Go或熟练的Go程序员开始使用新概念时，他们中的许多人都会犯一些常见的错误。目前为止，在Go的邮件列表中出现最频繁的错误之一，就是在循环迭代时将迭代数据传入并发的goroutines引发的错误。</p>
+<a id="more"></a>
 <h2 id="在循环迭代变量上使用goroutines"><a href="#在循环迭代变量上使用goroutines" class="headerlink" title="在循环迭代变量上使用goroutines"></a>在循环迭代变量上使用goroutines</h2><p>在Go中迭代时，操作者可能会尝试使用goroutines并行处理数据。例如，你可以使用闭包来编写类似下面的代码：</p>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<a id="more"></a>
 <p>上面的for循环可能没有达到你所预期的效果，因为这里的在整个循环中只初始化了一个val变量，这个val变量在每次循环时被重新赋值为当前切片元素。因为这里的闭包函数只绑定到了这个val变量，所以很有可能当你运行这个代码时，你会看到每个迭代打印的都是最后一个元素，而不是序列中的每个值，因为goroutines很可能会在循环结束后才开始执行。</p>
 <p>写这个闭包循环的正确方式如下:</p>
 <figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(val <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;(val)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -479,7 +479,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -490,7 +490,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>

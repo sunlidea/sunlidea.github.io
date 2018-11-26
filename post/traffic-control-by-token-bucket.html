@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="数据结构,Golang," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+<meta name="keywords" content="数据结构,Golang">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于令牌桶算法的流量控制">
+<meta property="og:url" content="http://yoursite.com/post/traffic-control-by-token-bucket.html">
+<meta property="og:site_name" content="sunlidea">
+<meta property="og:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-11-26T10:42:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="基于令牌桶算法的流量控制">
+<meta name="twitter:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/post/traffic-control-by-token-bucket.html"/>
+
+
+
+
+
+  <title>基于令牌桶算法的流量控制 | sunlidea</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">sunlidea</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/traffic-control-by-token-bucket.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sunlidea">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">基于令牌桶算法的流量控制</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-26T18:39:38+08:00">
+                2018-11-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/" itemprop="url" rel="index">
+                    <span itemprop="name">Golang</span>
+                  </a>
+                </span>
+
+                
+                
+                  ， 
+                
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Golang/数据结构/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a<->b的会话)为基本单位加上了流量控制。</-></p>
+<h2 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h2><h3 id="常用算法比较"><a href="#常用算法比较" class="headerlink" title="常用算法比较"></a>常用算法比较</h3><p>常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在<a href="https://www.cnblogs.com/haoxinyue/p/6792309.html" target="_blank" rel="noopener">谈谈高并发系统的限流</a>这篇文章中有比较详细的介绍。</p>
+<p>需要注意的是漏桶算法和令牌桶算法的区别：</p>
+<ul>
+<li>漏桶算法强制限制了数据的通过速率，并不负责处理突发的大流量；</li>
+<li>令牌桶算法则既平均了数据的通过速率，又能够处理突发的流量；</li>
+</ul>
+<a id="more"></a>
+<h3 id="令牌桶"><a href="#令牌桶" class="headerlink" title="令牌桶"></a>令牌桶</h3><p>利用令牌桶的算法进行限流是目前比较通用的方法，所以本文主要聚焦于令牌桶算法的介绍。</p>
+<p>根据wiki上的介绍<a href="https://en.wikipedia.org/wiki/Token_bucket" target="_blank" rel="noopener">令牌桶算法</a>，基本定义是：</p>
+<p>一个最大容量为b个令牌的令牌桶，按照一定速率r往桶中添加令牌。当需要处理的数据包通过时，先向该令牌桶索要一定数量n个的令牌(数据大小<->令牌个数 的对应关系自定义)，如果这时候桶内有&gt;=n个的令牌，那么就从桶中移除n个令牌，然后该数据包通过；如果桶内的令牌数不足，那么该数据包就被表示为目前不能通过，不通过的数据包通常有3种处理方式：</-></p>
+<ul>
+<li>被丢弃</li>
+<li>阻塞等待，直到桶内产生了足够多的令牌</li>
+<li>可以继续传输，但是需要被特殊标示，当网络拥堵的时候该特殊表示的数据包可能会被优先丢弃</li>
+</ul>
+<p>总结来说的话，令牌桶包括三个关键点：</p>
+<ul>
+<li>每过1/r秒，桶内增加一个令牌(r是增加速率 单位：个/s)</li>
+<li>桶内最多包含b个令牌，桶满之后，再过来的令牌会被丢弃</li>
+<li>当一个包含n个bytes的数据包到来的时候(此时假设 1个byte需要1个令牌)：<ul>
+<li>假如现在桶内有&gt;=n个令牌，那么就从桶内移除n个令牌，该数据包通过验证；</li>
+<li>假如桶内现在没有n个令牌，就不从桶内移除任何令牌，该数据包被标示为不通过，不通过的数据包再做特殊处理</li>
+</ul>
+</li>
+</ul>
+<p>所以说，令牌桶算法通过设置通过率r，限制通过数据的最大平均速率不会超过r；通过设置最大容量b，又可以处理突发性的数据流量。</p>
+<h2 id="令牌桶的实现"><a href="#令牌桶的实现" class="headerlink" title="令牌桶的实现"></a>令牌桶的实现</h2><p>Google的开源guava项目中有令牌桶限流算法的java实现<a href="https://github.com/google/guava/blob/v18.0/guava/src/com/google/common/util/concurrent/RateLimiter.java" target="_blank" rel="noopener">rateLimiter</a>，有兴趣可以看看。</p>
+<p>因为我们的服务端主要采用Go语言，所以本文主要介绍Go语言实现的令牌桶算法，Go语言官方已经提供了基于令牌桶令牌桶算法的速率限制器<a href="https://godoc.org/golang.org/x/time/rate" target="_blank" rel="noopener">rateLimiter</a></p>
+<p>该rateLimiter的基本结构如下</p>
+<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> Limiter <span class="keyword">struct</span> &#123;</span><br><span class="line">    limit Limit</span><br><span class="line">    burst <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    mu     sync.Mutex</span><br><span class="line">    tokens <span class="keyword">float64</span></span><br><span class="line">    <span class="comment">// last is the last time the limiter's tokens field was updated</span></span><br><span class="line">    last time.Time</span><br><span class="line">    <span class="comment">// lastEvent is the latest time of a rate-limited event (past or future)</span></span><br><span class="line">    lastEvent time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>针对获取不到足够令牌的数据包进行的不同处理，该限制器主要提供了三种方法。首先如果令牌充足的情况下，三种方法都消耗n个令牌；但是如果令牌不足，那么每个方法有各自的处理：</p>
+<ul>
+<li><p>AllowN：令牌不足时，直接返回false，适合不通过的数据包需要被直接丢弃的情况。</p>
+</li>
+<li><p>ReserveN：令牌不足时，提前预定还需要的令牌的差值个数(比如本次总共需要5个，目前只有2个，那么就预定3个），以及调用者在能够使用这些令牌前必须等待的时间。</p>
+</li>
+<li><p>WaitN：令牌不足时，阻塞等待直到桶内有对应的令牌个数；或者如果传入了取消信号，那么就取消等待，返回错误。</p>
+</li>
+</ul>
+<p>当回到我们目前通讯服务器的限流情况时，因为是以会话为单位限制通讯流量，预防恶意流量攻击，所以设定了一个用户发送消息的上限，该上限是正常用户输入发送消息所不能达到的，所以主要采用了AllowN的方法，超出限制的部分直接丢弃。</p>
+<h2 id="利用LRUcache限制内存中的令牌桶个数"><a href="#利用LRUcache限制内存中的令牌桶个数" class="headerlink" title="利用LRUcache限制内存中的令牌桶个数"></a>利用LRUcache限制内存中的令牌桶个数</h2><p>因为是以会话为单位进行限流的，每个会话一个限流器，所以如果全部保存在内存中的话，数量非常的大。所以采用cache的方式缓存热点数据，达到控制内存中限流器个数的目的。cache的操作主要是基于Go语言的<a href="https://github.com/golang/groupcache/blob/master/lru/lru.go" target="_blank" rel="noopener">LRUcache</a>里的LRUcache来实现的。</p>
+<p>LRUcache利用LRU算法实现cache的操作，LRU即为最近最少使用(Least recently used)，核心思想就是最新的添加/查看操作，使用频率最高。按照这个条件，当容量满了之后，淘汰频率最低的数据(即距离上次使用时间最长的数据)。</p>
+<h2 id="利用定时器主动淘汰过期数据"><a href="#利用定时器主动淘汰过期数据" class="headerlink" title="利用定时器主动淘汰过期数据"></a>利用定时器主动淘汰过期数据</h2><p>如果只使用LRUcache，那么还有一个弊端就是只有当cache满了之后才会开始淘汰数据，因为限流是以会话id做key，如果在加入该限制器的时候，同时增加一个过期销毁限制器的操作，就能够更加主动灵活的淘汰掉一些老的限制器，使得内存占用更小。</p>
+<p>具体定时器的实现详见之前的文章<a href="https://sunlidea.github.io/post/timer-by-heap.html" target="_blank" rel="noopener">基于最小堆的定时器的实现</a></p>
+<p>上面就是为了应对潜在的恶意流量攻击，而引入限流优化的详细过程。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/Golang/" rel="tag"># Golang</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/post/timer-by-heap.html" rel="next" title="基于最小堆的定时器的实现">
+                <i class="fa fa-chevron-left"></i> 基于最小堆的定时器的实现
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sun li</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/sunlidea" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:notifysunli@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题起源"><span class="nav-number">1.</span> <span class="nav-text">问题起源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#限流算法"><span class="nav-number">2.</span> <span class="nav-text">限流算法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#常用算法比较"><span class="nav-number">2.1.</span> <span class="nav-text">常用算法比较</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#令牌桶"><span class="nav-number">2.2.</span> <span class="nav-text">令牌桶</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#令牌桶的实现"><span class="nav-number">3.</span> <span class="nav-text">令牌桶的实现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用LRUcache限制内存中的令牌桶个数"><span class="nav-number">4.</span> <span class="nav-text">利用LRUcache限制内存中的令牌桶个数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#利用定时器主动淘汰过期数据"><span class="nav-number">5.</span> <span class="nav-text">利用定时器主动淘汰过期数据</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sun li</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
