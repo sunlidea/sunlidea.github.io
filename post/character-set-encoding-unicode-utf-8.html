@@ -88,7 +88,7 @@
 <meta property="og:description" content="在MySQL的建表SQL里，在HTTP的请求和响应的头部里，我们常常见到Unicode与UTF-8的出现。但很多时候即使是作为软件开发者，也很难讲清楚Unicode与UTF-8具体的含义与原理。事实上，如果我们在开发软件的时候”惯性”得选了UTF-8的编码方式，基本不会遇到字符编码相关的问题。 可是了解Unicode与UTF-8，对于软件的国际化和理解字符串类型的存储，解释与传输等又是如此重要。所">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/sunlidea/img/master/encoding.png">
-<meta property="og:updated_time" content="2019-04-19T02:31:44.000Z">
+<meta property="og:updated_time" content="2019-04-19T02:37:43.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符集 字节编码 Unicode UTF-8">
 <meta name="twitter:description" content="在MySQL的建表SQL里，在HTTP的请求和响应的头部里，我们常常见到Unicode与UTF-8的出现。但很多时候即使是作为软件开发者，也很难讲清楚Unicode与UTF-8具体的含义与原理。事实上，如果我们在开发软件的时候”惯性”得选了UTF-8的编码方式，基本不会遇到字符编码相关的问题。 可是了解Unicode与UTF-8，对于软件的国际化和理解字符串类型的存储，解释与传输等又是如此重要。所">
@@ -346,6 +346,7 @@
       
         <p>在MySQL的建表SQL里，在HTTP的请求和响应的头部里，我们常常见到Unicode与UTF-8的出现。但很多时候即使是作为软件开发者，也很难讲清楚Unicode与UTF-8具体的含义与原理。事实上，如果我们在开发软件的时候”惯性”得选了UTF-8的编码方式，基本不会遇到字符编码相关的问题。</p>
 <p>可是了解Unicode与UTF-8，对于软件的国际化和理解字符串类型的存储，解释与传输等又是如此重要。所以我在学习清楚这些概念之后，在这边文章里做一下记录和说明。</p>
+<a id="more"></a>
 <h2 id="基础概念明晰"><a href="#基础概念明晰" class="headerlink" title="基础概念明晰"></a>基础概念明晰</h2><p>Unicode是一种字符集character set，UTF-8是一种字符编码方式，这是我们都具有的常规的概念。可是细究起来，什么是字符集？什么是字符编码？甚至什么是字符？这是我们需要先弄清楚的术语。</p>
 <h3 id="字符-CHARACTER"><a href="#字符-CHARACTER" class="headerlink" title="字符 CHARACTER"></a>字符 CHARACTER</h3><p>字符本身反而是最容易混淆，与上下文相关的概念。不过在这里我们为了说明上的方便，将字符限定为“具有语义价值的书面语言的最小组成部分”。比如单个的汉字”一”，单个的英语字母”a”等等都是一个字符。</p>
 <h3 id="字符集-CHARACTER-SETS"><a href="#字符集-CHARACTER-SETS" class="headerlink" title="字符集 CHARACTER SETS"></a>字符集 CHARACTER SETS</h3><p>字符集就是一组字符的集合。比如26个小写英文字母是一个字符集，全部汉字是一个字符集，百家姓是一个字符集。</p>
