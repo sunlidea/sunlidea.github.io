@@ -43,6 +43,8 @@ func ValueOf(i interface{}) Value {
 
 可以看到，两个函数的参数都是空接口interface{}类型，可见反射Reflection与接口类型Interface密切相关。要了解reflect.Type 和 reflect.Value两个概念，我们需要先理清楚接口类型Interface。
 
+<!--more -->
+
 ## 反射Reflection与接口Interface
 
 反射建立在类型系统上，因此探究反射就有必要先整理清楚Go语言中的类型。
