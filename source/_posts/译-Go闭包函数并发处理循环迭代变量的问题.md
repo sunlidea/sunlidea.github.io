@@ -1,11 +1,11 @@
 ---
-title: '[译]Golang闭包函数并发处理循环迭代变量的问题'
+title: '[译]Go闭包函数并发处理循环迭代变量的问题'
 date: 2018-09-29 13:04:04
-urlname: golang-loop-closures-goroutines
+urlname: go-loop-closures-goroutines
 tags:
-- Golang
+- Go
 categories:
-- Golang
+- Go
 ---
 
 总结这一段时间团队在使用Go语言编程时，遇到最多的问题就是在闭包函数并发处理循环迭代变量时处理不当的问题。所以就想总结下这种情况，查资料时看到Go在Github的wiki页面上有一篇专门介绍该问题的文章，可见这个问题被询问的频率之高。这篇文章总结的挺好的，就把它翻译了下来，留作之后查资料值之用。
@@ -24,7 +24,7 @@ categories:
 
 在Go中迭代时，操作者可能会尝试使用goroutines并行处理数据。例如，你可以使用闭包来编写类似下面的代码：
 
-```golang
+```go
 
 for _, val := range values {
 	go func() {
@@ -38,7 +38,7 @@ for _, val := range values {
 
 写这个闭包循环的正确方式如下:
 
-```golang
+```go
 
 for _, val := range values {
 	go func(val interface{}) {
@@ -53,7 +53,7 @@ for _, val := range values {
 另一种正确处理的方式如下，
 需要注意的是，在循环体内声明的变量不在迭代之间共享，因此可以在闭包函数中单独使用。以下代码使用公共索引变量i来创建单独的val，这是可以产生预期的结果：
 
-```golang
+```go
 
 for i := range valslice {
 	val := valslice[i]
@@ -66,7 +66,7 @@ for i := range valslice {
 
 请注意，如果不将此闭包函数作为goroutine执行，代码将会按预期运行。以下示例打印出1到10之间的整数。这时候即使闭包函数仍然使用同一个变量（在这种情况下，就是i），但它们在变量变化之前就执行了，从而产生了预期的行为。
 
-```golang
+```go
 
 for i := 1; i <= 10; i++ {
 	func() {
@@ -78,7 +78,7 @@ for i := 1; i <= 10; i++ {
 
 下面是另一种相似的情况:
 
-```golang
+```go
 
 for _, val := range values {
 	go val.MyMethod()
@@ -92,7 +92,7 @@ func (v *val) MyMethod() {
 
 上面的例子也会打印出最后一个元素的值，原因与最上面并发时闭包的处理相同。要解决此问题，请在循环内声明另一个变量。
 
-```golang
+```go
 
 for _, val := range values {
         newVal := val

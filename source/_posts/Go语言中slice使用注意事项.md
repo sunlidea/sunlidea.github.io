@@ -1,11 +1,11 @@
 ---
 title: Go语言中slice使用注意事项
-urlname: golang-slice-trap
+urlname: go-slice-trap
 date: 2018-06-28 17:39:34
 tags:
-- Golang
+- Go
 categories:
-- Golang
+- Go
 ---
 Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。
 
@@ -297,7 +297,7 @@ a，b指向同一个底层数组，对a进行操作，该底层数组的值会�
 给出上面这些实例之后，给大家出个小小的测试题，看看大家是否真正对slice类型有了比较清晰的认识，下面这个程序输出的a,b结果是多少呢？
 运行程序，看和自己想的结果是否相同。
 
-```golang
+```go
 
 package main
 

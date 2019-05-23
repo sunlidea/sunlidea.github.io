@@ -1,11 +1,11 @@
 ---
 title: Go语言中反射Reflection的原理及应用
 date: 2019-05-23 16:31:37
-urlname: golang-reflection
+urlname: go-reflection
 tags:
-- Golang
+- Go
 categories:
-- Golang
+- Go
 ---
 
 作为一种静态编译型语言，Go语言中的反射Reflection特性提供了程序运行时检查，修改和创建变量和函数的功能。对于缺乏泛型generic支持的Go语言而言，通过Reflection也可以间接实现泛型的功能。本来主要探究Go语言中Reflection的原理及应用。

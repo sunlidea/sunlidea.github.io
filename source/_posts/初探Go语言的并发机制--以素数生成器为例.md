@@ -1,11 +1,11 @@
 ---
 title: 以素数生成器为例阐述Go语言的并发机制
-urlname: golang-concurrency-1
+urlname: go-concurrency-1
 date: 2018-07-10 18:03:28
 tags:
-- Golang
+- Go
 categories:
-- Golang
+- Go
 ---
 
 并发Concurrency机制可以说是Go语言最重要的特性之一，Go语言的命名就来源于创建并发操作的关键字Go。理解并运用好Go语言的并发就显得十分关键了。本文结合素数生成器的具体实例，从通过通信共享内存的角度初探Go语言的并发机制。
@@ -71,7 +71,7 @@ channels类型的变量可以说就是为了进行Go程间的通信而存在的�
 
 [The Go Playground在线运行版](https://play.golang.org/p/0hi9osM0SQ3)
 
-```golang
+```go
 package main
 
 import (
