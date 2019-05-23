@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Golang,数据结构," />
+  <meta name="keywords" content="Go,数据结构," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
-<meta name="keywords" content="Golang,数据结构">
+<meta name="keywords" content="Go,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于令牌桶算法的流量控制">
 <meta property="og:url" content="http://yoursite.com/post/traffic-control-by-token-bucket.html">
 <meta property="og:site_name" content="sunlidea&#39;s Blog">
 <meta property="og:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-26T10:42:39.000Z">
+<meta property="og:updated_time" content="2019-05-23T09:08:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于令牌桶算法的流量控制">
 <meta name="twitter:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
                   </a>
                 </span>
 
@@ -316,7 +316,7 @@
                 
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/数据结构/" itemprop="url" rel="index">
+                  <a href="/categories/Go/数据结构/" itemprop="url" rel="index">
                     <span itemprop="name">数据结构</span>
                   </a>
                 </span>
@@ -383,7 +383,7 @@
 <h2 id="令牌桶的实现"><a href="#令牌桶的实现" class="headerlink" title="令牌桶的实现"></a>令牌桶的实现</h2><p>Google的开源guava项目中有令牌桶限流算法的java实现<a href="https://github.com/google/guava/blob/v18.0/guava/src/com/google/common/util/concurrent/RateLimiter.java" target="_blank" rel="noopener">rateLimiter</a>，有兴趣可以看看。</p>
 <p>因为我们的服务端主要采用Go语言，所以本文主要介绍Go语言实现的令牌桶算法，Go语言官方已经提供了基于令牌桶令牌桶算法的速率限制器<a href="https://godoc.org/golang.org/x/time/rate" target="_blank" rel="noopener">rateLimiter</a></p>
 <p>该rateLimiter的基本结构如下</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> Limiter <span class="keyword">struct</span> &#123;</span><br><span class="line">    limit Limit</span><br><span class="line">    burst <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    mu     sync.Mutex</span><br><span class="line">    tokens <span class="keyword">float64</span></span><br><span class="line">    <span class="comment">// last is the last time the limiter's tokens field was updated</span></span><br><span class="line">    last time.Time</span><br><span class="line">    <span class="comment">// lastEvent is the latest time of a rate-limited event (past or future)</span></span><br><span class="line">    lastEvent time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> Limiter <span class="keyword">struct</span> &#123;</span><br><span class="line">    limit Limit</span><br><span class="line">    burst <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    mu     sync.Mutex</span><br><span class="line">    tokens <span class="keyword">float64</span></span><br><span class="line">    <span class="comment">// last is the last time the limiter's tokens field was updated</span></span><br><span class="line">    last time.Time</span><br><span class="line">    <span class="comment">// lastEvent is the latest time of a rate-limited event (past or future)</span></span><br><span class="line">    lastEvent time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>针对获取不到足够令牌的数据包进行的不同处理，该限制器主要提供了三种方法。首先如果令牌充足的情况下，三种方法都消耗n个令牌；但是如果令牌不足，那么每个方法有各自的处理：</p>
 <ul>
 <li><p>AllowN：令牌不足时，直接返回false，适合不通过的数据包需要被直接丢弃的情况。</p>
@@ -416,7 +416,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Golang/" rel="tag"># Golang</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
             <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
           

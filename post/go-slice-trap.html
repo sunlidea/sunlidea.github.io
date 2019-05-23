@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Golang," />
+  <meta name="keywords" content="Go," />
 
 
 
@@ -80,14 +80,14 @@
 
 
 <meta name="description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
-<meta name="keywords" content="Golang">
+<meta name="keywords" content="Go">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go语言中slice使用注意事项">
-<meta property="og:url" content="http://yoursite.com/post/golang-slice-trap.html">
+<meta property="og:url" content="http://yoursite.com/post/go-slice-trap.html">
 <meta property="og:site_name" content="sunlidea&#39;s Blog">
 <meta property="og:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-11-26T10:21:46.000Z">
+<meta property="og:updated_time" content="2019-05-23T09:07:04.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Go语言中slice使用注意事项">
 <meta name="twitter:description" content="Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。 slice定义Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:  指向底层数组的指针 slice目前使用到的底层数组的元素个数，即长度 底层数组的最大长度">
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/golang-slice-trap.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/go-slice-trap.html"/>
 
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/golang-slice-trap.html">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/go-slice-trap.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Golang/" itemprop="url" rel="index">
-                    <span itemprop="name">Golang</span>
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
                   </a>
                 </span>
 
@@ -388,7 +388,7 @@
 <p>但是此时b指向的底层数组本身虽然变化了，可是b的长度仍然是0，所以此时打印b，会出来结果[]</p>
 <p><strong>理解这个结果的关键是：a和b虽然指向同一个底层数组，可是长度和容量却是各自持有的独立的因素，不会互相影响.</strong></p>
 <p>给出上面这些实例之后，给大家出个小小的测试题，看看大家是否真正对slice类型有了比较清晰的认识，下面这个程序输出的a,b结果是多少呢？<br>运行程序，看和自己想的结果是否相同。</p>
-<figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">	b := a</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对a进行append操作 但是不超过原始容量2</span></span><br><span class="line">	a = <span class="built_in">append</span>(a, <span class="number">1</span>)</span><br><span class="line">	b = <span class="built_in">append</span>(b, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印出a b此时的值</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a)</span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">	b := a</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对a进行append操作 但是不超过原始容量2</span></span><br><span class="line">	a = <span class="built_in">append</span>(a, <span class="number">1</span>)</span><br><span class="line">	b = <span class="built_in">append</span>(b, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印出a b此时的值</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a)</span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><a href="https://play.golang.org/p/PuOm76PmWRJ" target="_blank" rel="noopener">运行示例代码</a></p>
 <p>参考资料:</p>
 <p><a href="https://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="noopener">https://blog.golang.org/go-slices-usage-and-internals</a></p>
@@ -409,7 +409,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Golang/" rel="tag"># Golang</a>
+            <a href="/tags/Go/" rel="tag"># Go</a>
           
         </div>
       
@@ -428,7 +428,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/post/golang-concurrency-1.html" rel="prev" title="以素数生成器为例阐述Go语言的并发机制">
+              <a href="/post/go-concurrency-1.html" rel="prev" title="以素数生成器为例阐述Go语言的并发机制">
                 以素数生成器为例阐述Go语言的并发机制 <i class="fa fa-chevron-right"></i>
               </a>
             
