@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="sunlidea&#39;s Blog">
 <meta property="og:description" content="最近项目中遇到了一个time.After的错误使用问题，而在常见的gopher学习材料中time.After又常常被用到，以至于我们忽略了背后的性能问题。 问题这一段时间用户增长很快，通讯服务程序出现一个现象: 最初两台配置较差的服务器上通讯进程的CPU使用率和内存占用率开始缓慢升高，之后加速度越来越大o(╯□╰)o，当内存占用足够高的时候就会被linux的OOM killer机制杀死，之后被su">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="evernotecid://BBA67D57-7922-4B2E-B8C7-BE4DD447858B/appyinxiangcom/12364249/ENResource/p1125">
-<meta property="og:updated_time" content="2019-06-06T10:02:56.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/sunlidea/img/master/pprof_heap.png">
+<meta property="og:updated_time" content="2019-06-06T10:27:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小心使用Go中的Time.After——记一次BUG解决过程">
 <meta name="twitter:description" content="最近项目中遇到了一个time.After的错误使用问题，而在常见的gopher学习材料中time.After又常常被用到，以至于我们忽略了背后的性能问题。 问题这一段时间用户增长很快，通讯服务程序出现一个现象: 最初两台配置较差的服务器上通讯进程的CPU使用率和内存占用率开始缓慢升高，之后加速度越来越大o(╯□╰)o，当内存占用足够高的时候就会被linux的OOM killer机制杀死，之后被su">
-<meta name="twitter:image" content="evernotecid://BBA67D57-7922-4B2E-B8C7-BE4DD447858B/appyinxiangcom/12364249/ENResource/p1125">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/sunlidea/img/master/pprof_heap.png">
 
 
 
@@ -349,7 +349,7 @@
 <h2 id="查找"><a href="#查找" class="headerlink" title="查找"></a>查找</h2><p>考虑是由于用户增加快，这两台配置较差的服务器上触发了程序的隐藏bug。观察现象：通讯进程的CPU使用率和内存占用率缓慢升高，首先想到的是goroutine泄露。但是因为我们有监控每个进程的goroutine数量，发现随着时间的推进，goroutine数量是比较稳定的，并无暴涨的情况。利用pprof的goroutine分析，也未发现异常。</p>
 <p>再想到，因为内存占有率的不断升高直到快达到100%而被杀死，那可能是因为垃圾回收方面的问题。利用pprof的heap分析，查看当前程序的内存占用情况：</p>
 <a id="more"></a>
-<p><img src="evernotecid://BBA67D57-7922-4B2E-B8C7-BE4DD447858B/appyinxiangcom/12364249/ENResource/p1125" alt="e67fc4a5660cc80dd2f0ad85002a92cd.png"></p>
+<p><img src="https://raw.githubusercontent.com/sunlidea/img/master/pprof_heap.png" alt="pprof_heap" title="pprof_heap探测"></p>
 <p>发现了time.After和time.NewTimer是内存暴涨的原因。去程序里锁定了类似如下一段代码：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> self.Open &#123;</span><br><span class="line">    <span class="keyword">select</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> msg := &lt;-self.readChan:</span><br><span class="line">        <span class="comment">// do someting</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">case</span> &lt;- time.After(time.Second*<span class="number">3</span>):</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在for循环内在一个从读取channel变量readChan中获取消息的逻辑，利用time.After做了超时处理，如果3秒内没有从readChan中读取到数据，就跳出到外循环检查是否连接仍旧是开启(open)状态，之后继续读取。</p>
