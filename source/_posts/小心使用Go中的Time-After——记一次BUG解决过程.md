@@ -22,7 +22,7 @@ categories:
 
 <!--more -->
 
-![e67fc4a5660cc80dd2f0ad85002a92cd.png](evernotecid://BBA67D57-7922-4B2E-B8C7-BE4DD447858B/appyinxiangcom/12364249/ENResource/p1125)
+![pprof_heap](https://raw.githubusercontent.com/sunlidea/img/master/pprof_heap.png "pprof_heap探测")
 
 发现了time.After和time.NewTimer是内存暴涨的原因。去程序里锁定了类似如下一段代码：
 
