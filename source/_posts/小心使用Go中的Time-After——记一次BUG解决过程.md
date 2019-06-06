@@ -1,5 +1,5 @@
 ---
-title: 小心使用Go中的Time.After——记一次BUG解决过程.md
+title: 小心使用Go中的Time.After——记一次BUG解决过程
 date: 2019-06-06 17:46:29
 urlname: go-time-after
 tags:
