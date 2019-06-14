@@ -249,6 +249,156 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/go-defer-or-not-defer.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sun li">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="sunlidea's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/post/go-defer-or-not-defer.html" itemprop="url">defer or not defer, that is the question</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-14T18:19:09+08:00">
+                2019-06-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Go/" itemprop="url" rel="index">
+                    <span itemprop="name">Go</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>defer是Go语言的一种特殊的流程控制机制，通常用于简化执行各种资源清理和释放操作，比如关闭文件，释放锁，断开连接等等。使用defer可以更加简洁清晰的实现这种清理操作，但同时就像任何事物都有两面性，这种简洁性有时也会带来性能的下降，有些场景因此应该避免使用defer。本文主要是关于对应于不同的场景，如何选择性得正确得使用defer。</p>
+<h2 id="defer概念"><a href="#defer概念" class="headerlink" title="defer概念"></a>defer概念</h2><blockquote>
+<p>下面的叙述中，统一用外围函数代指包含defer的外层函数</p>
+</blockquote>
+<p>defer语句调用一个函数，该函数的执行被推迟到外围函数返回的那一刻，外围函数的返回存在两种情况：正常执行到了return语句 或者 函数所在的goroutine发生了崩溃(panic)。也就是说如果外围函数通过显式return语句返回，defer语句真正执行的时机则是在该return语句设置任何结果参数之后，但在外围函数返回其调用者之前。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/post/go-defer-or-not-defer.html#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/go-time-after.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1611,200 +1761,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/post/go-slice-trap.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="sunlidea's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/post/go-slice-trap.html" itemprop="url">Go语言中slice使用注意事项</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T17:39:34+08:00">
-                2018-06-28
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Go/" itemprop="url" rel="index">
-                    <span itemprop="name">Go</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Go语言中slice类型算是比较特殊的一种数据类型，用起来很方便，在代码中的使用率也很高。不过要注意的是，slice虽然很方便，但同时也有很多陷阱需要注意。本文结合具体实例阐述了使用slice的一些注意事项。</p>
-<h2 id="slice定义"><a href="#slice定义" class="headerlink" title="slice定义"></a>slice定义</h2><p>Go语言中slice类型可以理解为是数组array类型的描述符，包含了三个因素:</p>
-<ol>
-<li>指向底层数组的指针</li>
-<li>slice目前使用到的底层数组的元素个数，即长度</li>
-<li>底层数组的最大长度，即容量</li>
-</ol>
-<p>因此当我们定义如下一个切片变量 <figure class="highlight plain"><figcaption><span>:</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;!-- more --&gt;</span><br><span class="line"></span><br><span class="line">## 注意事项</span><br><span class="line"></span><br><span class="line">基于slice的定义，在使用slice时，有以下几点注意事项：</span><br><span class="line"></span><br><span class="line">### 一. 切分操作</span><br><span class="line"></span><br><span class="line">对slice进行切分操作会生成一个新的slice变量，新slice和原来的slice指向同一个底层数组，只不过指向的起始位置可能不同，长度及容量可能也不相同。</span><br><span class="line"></span><br><span class="line">- 当从左边界有截断时，会改变新切片容量大小</span><br><span class="line">- 左边界默认0，最小为0；右边界默认slice的长度，最大为slice的容量</span><br><span class="line">- 因为指向同一个底层数组，对新slice的操作会影响到原来的slice</span><br><span class="line"></span><br><span class="line">```go</span><br><span class="line"></span><br><span class="line">	a := make([]int, 5, 10)</span><br><span class="line"></span><br><span class="line">	b := a[:3]</span><br><span class="line">	//b  len: 3 cap: 10</span><br><span class="line">	fmt.Println(&quot;b &quot;, &quot;len:&quot;, len(b), &quot;cap:&quot;, cap(b))</span><br><span class="line"></span><br><span class="line">	//当从左边界有截断时 会改变新切片容量大小</span><br><span class="line">	c := a[2:4]</span><br><span class="line">	//c  len: 2 cap: 8</span><br><span class="line">	fmt.Println(&quot;c &quot;, &quot;len:&quot;, len(c), &quot;cap:&quot;, cap(c))</span><br><span class="line"></span><br><span class="line">	//左边界默认0 最小为0 | 右边界默认slice的长度 最大为slice的容量</span><br><span class="line">	d := a[:cap(a)]</span><br><span class="line">	//d  len: 10 cap: 10</span><br><span class="line">	fmt.Println(&quot;d &quot;, &quot;len:&quot;, len(d), &quot;cap:&quot;, cap(d))</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://play.golang.org/p/3GO0cIbZ9u" target="_blank" rel="noopener">运行示例代码 - slice切分操作</a></p>
-<blockquote>
-<p>本文中出现的示例代码展示于The Go Playground</p>
-</blockquote>
-<h3 id="二-赋值及函数间传递"><a href="#二-赋值及函数间传递" class="headerlink" title="二. 赋值及函数间传递"></a>二. 赋值及函数间传递</h3><h4 id="第一种情况"><a href="#第一种情况" class="headerlink" title="第一种情况"></a><em>第一种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">b := a</span><br><span class="line"></span><br><span class="line"><span class="comment">//对b进行操作会影响到a</span></span><br><span class="line">b[<span class="number">0</span>] = <span class="number">10</span></span><br><span class="line"><span class="comment">// 10 2 3 4 5</span></span><br><span class="line">fmt.Println(a)</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/lcjiulu-X2" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，则a, b指向同一个底层数组，且长度及容量因素相同，对b进行的操作会影响到a。</p>
-<h4 id="第二种情况"><a href="#第二种情况" class="headerlink" title="第二种情况"></a><em>第二种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">	a := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	modifySlice(a)</span><br><span class="line">	<span class="comment">//[10 2 3 4 5]</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modifySlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	s[<span class="number">0</span>] = <span class="number">10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/ioOXLoAz3W" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，将slice作为参数在函数间传递的时候是值传递，产生了一个新的slice，只不过新的slice仍然指向原来的底层数组，所以通过新的slice也能改变原来的slice的值。</p>
-<h4 id="第三种情况"><a href="#第三种情况" class="headerlink" title="第三种情况"></a><em>第三种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">	modifySlice(a)</span><br><span class="line">	<span class="comment">//[1 2 3 4 5]</span></span><br><span class="line">	fmt.Println(a)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modifySlice</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	s = []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/LbFovzP-Rj" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>但是，如上所示，在调用函数的内部，将s整体赋值一个新的slice，并不会改变a的值，因为modifySlice函数内对s重新的整体赋值，让s指向了一个新的底层数组，而不是传递进来之前的a指向的那个数组，之后s的任何操作都不会影响到a了。</p>
-<h3 id="三-append操作"><a href="#三-append操作" class="headerlink" title="三. append操作"></a>三. append操作</h3><p>append操作最容易踩坑，下面详细说明一下。</p>
-<ul>
-<li>append函数定义<figure class="highlight plain"><figcaption><span>append(s []T, x ...T) []T```</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">- Append基本原则：对于一个slice变量，若slice容量足够，append直接在原来的底层数组上追加元素到slice上；如果容量不足，append操作会生成一个新的更大容量的底层数组。</span><br><span class="line"></span><br><span class="line">#### *第一种情况*</span><br><span class="line"></span><br><span class="line">```go</span><br><span class="line">func main() &#123;</span><br><span class="line"></span><br><span class="line">	a := make([]int, 2, 4)</span><br><span class="line"></span><br><span class="line">	//通常append操作都是将返回值赋值给自己,</span><br><span class="line">	//此处为了方便说明,没有这样做</span><br><span class="line">	b := append(a, 1)</span><br><span class="line">	//改变b的前2个元素值 会影响到a</span><br><span class="line">	b[0] = 99</span><br><span class="line"></span><br><span class="line">	//a: [99 0]    &amp;a[0]: 0x10410020  len: 2  cap: 4</span><br><span class="line">	fmt.Println(&quot;a:&quot;, a, &quot; &amp;a[0]:&quot;, &amp;a[0], &quot; len:&quot;, len(a), &quot; cap:&quot;, cap(a))</span><br><span class="line">	//b: [99 0 1]  &amp;b[0]: 0x10410020  len: 3  cap: 4</span><br><span class="line">	fmt.Println(&quot;b:&quot;, b, &quot; &amp;b[0]:&quot;, &amp;b[0], &quot; len:&quot;, len(b), &quot; cap:&quot;, cap(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p><a href="https://play.golang.org/p/rQQy4u0vCq" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，对a进行append操作，若append后的新slice的实际元素个数没有超出原来指向的底层数组的容量，所以仍然使用原来的底层数组a, b的第一个值的地址一样, 改变b的前2个元素也会影响到a。</p>
-<p>其实这时候a,b指向的同一个底层数组的第3位(索引2)已经变成了数值1，但是对slice而言，除了底层数组，还有长度，容量两个因素，这时候a的长度仍然是2，所以输出的a的值没有变化。</p>
-<h4 id="第二种情况-1"><a href="#第二种情况-1" class="headerlink" title="第二种情况"></a><em>第二种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//通常append操作都是将返回值赋值给自己,</span></span><br><span class="line">	<span class="comment">//此处为了方便说明,没有这样做</span></span><br><span class="line">	b := <span class="built_in">append</span>(a, <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>)</span><br><span class="line">	<span class="comment">//改变b的前2个元素值 不会影响到a</span></span><br><span class="line">	b[<span class="number">0</span>] = <span class="number">99</span></span><br><span class="line"></span><br><span class="line">	<span class="comment">//a: [0 0]         &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line">	<span class="comment">//b: [99 0 1 2 3]  &amp;b[0]: 0x10454000  len: 5  cap: 8</span></span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b, <span class="string">" &amp;b[0]:"</span>, &amp;b[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(b), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/e-gvTVx4vZ" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，若append后的新slice即b的实际元素个数已经超出了原来的a指向的底层数组的容量，那么就会分配给b一个新的底层数组，可以看到，a，b第一个元素的地址已经不同，改变b的前两个元素值也不会影响到a，同时容量也发生了变化。</p>
-<h4 id="第三种情况-1"><a href="#第三种情况-1" class="headerlink" title="第三种情况"></a><em>第三种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">	a[<span class="number">0</span>] = <span class="number">10</span></span><br><span class="line">	a[<span class="number">1</span>] = <span class="number">20</span></span><br><span class="line">	<span class="comment">//a: [10 20]  &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line"></span><br><span class="line">	<span class="comment">//进行append操作</span></span><br><span class="line">	b := <span class="built_in">append</span>(a[:<span class="number">1</span>], <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//a: [10 1]   &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//b: [10 1]   &amp;b[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b, <span class="string">" &amp;b[0]:"</span>, &amp;b[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(b), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/Efb42G5Wt9" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，若append后的b的实际元素个数没有超过原来的a指向的底层数组的容量，那么a，b指向同一个底层数组。<br>注意此时append的操作对象是：对a进行切分之后的切片，只取了a的第一个值，相当于一个新切片，长度为1，和a指向同一个底层数组，我们称这个切分后的新切片为c吧，那么就相当于b其实是基于c切片进行append的，直接在长度1之后追加元素，所以append之后a的第二个元素变成了1。<strong>所以切分操作和append操作放一起的时候，一定要小心</strong></p>
-<h4 id="第四种情况"><a href="#第四种情况" class="headerlink" title="第四种情况"></a><em>第四种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">	a[<span class="number">0</span>] = <span class="number">10</span></span><br><span class="line">	a[<span class="number">1</span>] = <span class="number">20</span></span><br><span class="line">	<span class="comment">//a: [10 20]       &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line"></span><br><span class="line">	<span class="comment">//进行append操作</span></span><br><span class="line">	<span class="comment">//append是在第一个元素后开始追加，所以要超过容量，至少要追加4个，而不是之前例子的3个</span></span><br><span class="line">	b := <span class="built_in">append</span>(a[:<span class="number">1</span>], <span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//a: [10 20]       &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//b: [10 1 2 3 4]  &amp;b[0]: 0x10454020  len: 5  cap: 8</span></span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b, <span class="string">" &amp;b[0]:"</span>, &amp;b[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(b), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(b))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/wzNbO9vDJ0" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示，这种情况主要用来与第三种情况对比，如果append的元素数较多，超过了原来的容量，直接采用了新的底层数组，也就不会影响到a了。</p>
-<h4 id="第五种情况"><a href="#第五种情况" class="headerlink" title="第五种情况"></a><em>第五种情况</em></h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">2</span>, <span class="number">4</span>)</span><br><span class="line">	a[<span class="number">0</span>] = <span class="number">10</span></span><br><span class="line">	a[<span class="number">1</span>] = <span class="number">20</span></span><br><span class="line">	<span class="comment">//a: [10 20]  &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line"></span><br><span class="line">	testAppend(a[:<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">	<span class="comment">//a: [10 1]   &amp;a[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a, <span class="string">" &amp;a[0]:"</span>, &amp;a[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(a), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(a))</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">testAppend</span><span class="params">(s []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">	<span class="comment">//进行append操作</span></span><br><span class="line">	s = <span class="built_in">append</span>(s, <span class="number">1</span>)</span><br><span class="line">	<span class="comment">//s: [10 1]  &amp;s[0]: 0x10410020  len: 2  cap: 4</span></span><br><span class="line">	fmt.Println(<span class="string">"s:"</span>, s, <span class="string">" &amp;s[0]:"</span>, &amp;s[<span class="number">0</span>], <span class="string">" len:"</span>, <span class="built_in">len</span>(s), <span class="string">" cap:"</span>, <span class="built_in">cap</span>(s))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/mvUZkmBW8u" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>如上所示。要小心如果在函数间传递slice，调用函数采用append进行操作，可能会改变原来的值的。</p>
-<h4 id="第六种情况"><a href="#第六种情况" class="headerlink" title="第六种情况"></a><em>第六种情况</em></h4><figure class="highlight golang"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">	b := a</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对a进行append操作 但是不超过原始容量2</span></span><br><span class="line">	a = <span class="built_in">append</span>(a, <span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印出a b此时的值</span></span><br><span class="line">	<span class="comment">//a: [1]</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a)</span><br><span class="line">	<span class="comment">//b: []</span></span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/-Fc5Nztkj_I" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>a，b指向同一个底层数组，对a进行操作，该底层数组的值会发生变化，但是我们回过头看开始slice的定义，slice的定义包含三个方面：底层数组，长度，容量。对a进行append操作后，a的长度变成了1，所以打印出来的时候出来结果[1];</p>
-<p>但是此时b指向的底层数组本身虽然变化了，可是b的长度仍然是0，所以此时打印b，会出来结果[]</p>
-<p><strong>理解这个结果的关键是：a和b虽然指向同一个底层数组，可是长度和容量却是各自持有的独立的因素，不会互相影响.</strong></p>
-<p>给出上面这些实例之后，给大家出个小小的测试题，看看大家是否真正对slice类型有了比较清晰的认识，下面这个程序输出的a,b结果是多少呢？<br>运行程序，看和自己想的结果是否相同。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	a := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">0</span>, <span class="number">2</span>)</span><br><span class="line">	b := a</span><br><span class="line"></span><br><span class="line">	<span class="comment">//对a进行append操作 但是不超过原始容量2</span></span><br><span class="line">	a = <span class="built_in">append</span>(a, <span class="number">1</span>)</span><br><span class="line">	b = <span class="built_in">append</span>(b, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//打印出a b此时的值</span></span><br><span class="line">	fmt.Println(<span class="string">"a:"</span>, a)</span><br><span class="line">	fmt.Println(<span class="string">"b:"</span>, b)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a href="https://play.golang.org/p/PuOm76PmWRJ" target="_blank" rel="noopener">运行示例代码</a></p>
-<p>参考资料:</p>
-<p><a href="https://blog.golang.org/go-slices-usage-and-internals" target="_blank" rel="noopener">https://blog.golang.org/go-slices-usage-and-internals</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1848,7 +1811,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

@@ -88,7 +88,7 @@
 <meta property="og:description" content="最近项目中遇到了一个time.After的错误使用问题，而在常见的gopher学习材料中time.After又常常被用到，以至于我们忽略了背后的性能问题。 问题这一段时间用户增长很快，通讯服务程序出现一个现象: 最初两台配置较差的服务器上通讯进程的CPU使用率和内存占用率开始缓慢升高，之后加速度越来越大o(╯□╰)o，当内存占用足够高的时候就会被linux的OOM killer机制杀死，之后被su">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://raw.githubusercontent.com/sunlidea/img/master/pprof_heap.png">
-<meta property="og:updated_time" content="2019-06-06T10:27:14.000Z">
+<meta property="og:updated_time" content="2019-06-14T10:22:00.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="小心使用Go中的Time.After——记一次BUG解决过程">
 <meta name="twitter:description" content="最近项目中遇到了一个time.After的错误使用问题，而在常见的gopher学习材料中time.After又常常被用到，以至于我们忽略了背后的性能问题。 问题这一段时间用户增长很快，通讯服务程序出现一个现象: 最初两台配置较差的服务器上通讯进程的CPU使用率和内存占用率开始缓慢升高，之后加速度越来越大o(╯□╰)o，当内存占用足够高的时候就会被linux的OOM killer机制杀死，之后被su">
@@ -403,6 +403,10 @@
 
           <div class="post-nav-prev post-nav-item">
             
+              <a href="/post/go-defer-or-not-defer.html" rel="prev" title="defer or not defer, that is the question">
+                defer or not defer, that is the question <i class="fa fa-chevron-right"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -478,7 +482,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
