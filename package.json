@@ -17,7 +17,8 @@
     "hexo-renderer-marked": "^2.0.0",
     "hexo-renderer-stylus": "^0.3.1",
     "hexo-server": "^0.3.3",
-    "mixin-deep": "^2.0.1"
+    "mixin-deep": "^2.0.1",
+    "snapdragon": "^0.12.0"
   },
   "devDependencies": {
     "eslint": "^4.19.1"
