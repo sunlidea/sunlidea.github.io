@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="数据结构," />
+  <meta name="keywords" content="数据结构,">
 
 
 
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/binary-tree-traversal.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/binary-tree-traversal.html">
 
 
 
@@ -157,7 +157,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">sunlidea's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -187,7 +187,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -197,7 +197,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -207,7 +207,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -217,7 +217,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -260,7 +260,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -296,7 +296,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -371,7 +371,9 @@
 <p><a href="https://gist.github.com/sunlidea/83068315d661f53e51cf78665dbdf9c1" target="_blank" rel="noopener">详细代码实现</a></p>
 <p>首先给出基础的树节点定义，包括一个获取二叉树总节点个数的方法，后面在后序遍历的非递归实现中会用到。</p>
 <a id="more"></a>
+
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">static</span> <span class="class"><span class="keyword">class</span> <span class="title">TreeNode</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> val = <span class="number">0</span>;</span><br><span class="line">    TreeNode left = <span class="keyword">null</span>;</span><br><span class="line">    TreeNode right = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">TreeNode</span><span class="params">(<span class="keyword">int</span> v)</span> </span>&#123;</span><br><span class="line">        val = v;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//获取二叉树的总节点数</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">size</span> <span class="params">(TreeNode node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node==<span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> + size(node.left) + size(node.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>本文以下图所示的二叉树为例进行描述。</p>
 <p><img src="https://raw.githubusercontent.com/sunlidea/img/master/bianry_tree.png" alt="bianry_tree" title="二叉树实例"></p>
 <p>该二叉树的各种遍历方式结果如下：</p>
@@ -386,6 +388,7 @@
 <h3 id="前序遍历"><a href="#前序遍历" class="headerlink" title="前序遍历"></a>前序遍历</h3><p>即按照 根节点-&gt;左节点-&gt;右节点 的顺序进行遍历。</p>
 <p>首先给出递归实现：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//前序遍历 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preOrderTraversalByRecursion</span><span class="params">(TreeNode node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.print(<span class="string">" "</span> + node.val);</span><br><span class="line"></span><br><span class="line">    preOrderTraversalByRecursion(node.left);</span><br><span class="line">    preOrderTraversalByRecursion(node.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>遍历的递归实现比较简单，不过这个代码可以很好的说明递归实现的思想。递归实现的两个关键条件就是：最小单元和终止条件。</p>
 <p>下图就是可以描述树这种数据结构特点的一个最小单元，当我们要遍历整个树的时候，先考虑正确遍历这个最小单元，前序遍历需要按照 “根-&gt;左-&gt;右” 的顺序进行遍历，所以先输出根节点的值，然后递归处理左节点，右节点，即有了上面递归函数的处理顺序。</p>
 <p>而终止条件就是判断递归处理何时应该结束，对于当前遍历实现就是当处理到null节点的时候。</p>
@@ -394,6 +397,7 @@
 <p>下面给出前序遍历的非递归实现，共有两种方式。</p>
 <p>非递归实现1如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//前序遍历 非递归 实现1</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preOrderTraversal1</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root==<span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="comment">//初始化一个栈</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    <span class="comment">//首先将根节点压入栈中</span></span><br><span class="line">    stack.push(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(stack.isEmpty()==<span class="keyword">false</span>) &#123;</span><br><span class="line">        TreeNode node = stack.pop();</span><br><span class="line">        System.out.print(<span class="string">" "</span> + node.val);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//后入先出 按照先右节点 再左节点的顺序依次压入栈</span></span><br><span class="line">        <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node.right);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node.left);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>对于非递归实现1而言：</p>
 <ol>
 <li>初始化一个栈，首先将根节点压入栈中。</li>
@@ -405,6 +409,7 @@
 <p>非递归实现1和后面的层级遍历的实现具有高度的饿对称性，这个放在层级遍历进行分析。</p>
 <p>另一种非递归实现2如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//前序遍历 非递归 实现2</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">preOrderTraversal2</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="comment">//初始化一个栈</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    <span class="comment">//建立一个临时节点</span></span><br><span class="line">    TreeNode node = root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> || stack.isEmpty() == <span class="keyword">false</span>) &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//内循环</span></span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            <span class="comment">//输出节点</span></span><br><span class="line">            System.out.print(<span class="string">" "</span> +node.val);</span><br><span class="line">            stack.push(node);</span><br><span class="line">            node = node.left;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        node = stack.pop();</span><br><span class="line">        node = node.right;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>对于非递归实现2而言：</p>
 <ol>
 <li>初始化一个栈</li>
@@ -415,8 +420,10 @@
 <h3 id="中序遍历"><a href="#中序遍历" class="headerlink" title="中序遍历"></a>中序遍历</h3><p>即按照 左节点-&gt;根节点-&gt;右节点 的顺序进行遍历。</p>
 <p>递归实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//中序遍历 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inOrderTraversalByRecursion</span><span class="params">(TreeNode node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    inOrderTraversalByRecursion(node.left);</span><br><span class="line">    System.out.print(<span class="string">" "</span> + node.val);</span><br><span class="line">    inOrderTraversalByRecursion(node.right);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>非递归实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//中序遍历 非递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">inOrderTraversal</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="comment">//初始化一个栈</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    <span class="comment">//建立一个临时节点</span></span><br><span class="line">    TreeNode node = root;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (node != <span class="keyword">null</span> || stack.isEmpty() == <span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="keyword">while</span> (node != <span class="keyword">null</span>) &#123;</span><br><span class="line">            stack.push(node);</span><br><span class="line">            node = node.left;</span><br><span class="line">        &#125;</span><br><span class="line">        node = stack.pop();</span><br><span class="line">        <span class="comment">//输出节点</span></span><br><span class="line">        System.out.print(<span class="string">" "</span> +node.val);</span><br><span class="line"></span><br><span class="line">        node = node.right;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>对于非递归实现而言：</p>
 <ol>
 <li>中序遍历的非递归实现和前序遍历的非递归实现2基本相同，只是输出节点的位置不同。</li>
@@ -424,8 +431,10 @@
 </ol>
 <h3 id="后序遍历"><a href="#后序遍历" class="headerlink" title="后序遍历"></a>后序遍历</h3><p>递归实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//后序遍历 递归实现</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">postOrderTraversalByRecursion</span><span class="params">(TreeNode node)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (node == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    postOrderTraversalByRecursion(node.left);</span><br><span class="line">    postOrderTraversalByRecursion(node.right);</span><br><span class="line">    System.out.print(<span class="string">" "</span> + node.val);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>非递归实现如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//后序遍历 非递归</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">postOrderTraversal</span><span class="params">(TreeNode root)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> size = size(root);</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="comment">//初始化一个栈</span></span><br><span class="line">    Stack&lt;TreeNode&gt; stack = <span class="keyword">new</span> Stack&lt;TreeNode&gt;();</span><br><span class="line">    <span class="comment">//建立一个临时节点</span></span><br><span class="line">    TreeNode node = root;</span><br><span class="line">    <span class="comment">//初始化一个数组 用于标示对应节点的右节点是否已经处理</span></span><br><span class="line">    <span class="keyword">int</span>[] flag = <span class="keyword">new</span> <span class="keyword">int</span>[size+<span class="number">1</span>];</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(node !=<span class="keyword">null</span>) &#123;</span><br><span class="line">        stack.push(node);</span><br><span class="line">        node = node.left;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//初始化为0</span></span><br><span class="line">        flag[stack.size()] = <span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(stack.isEmpty() ==<span class="keyword">false</span> ) &#123;</span><br><span class="line">        node = stack.peek();</span><br><span class="line">        <span class="keyword">while</span>(node.right != <span class="keyword">null</span> &amp;&amp; flag[stack.size()] == <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="comment">//该节点的右节点有值 并且还没被处理过</span></span><br><span class="line">            node = node.right;</span><br><span class="line">            flag[stack.size()] = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line">            <span class="keyword">while</span>(node != <span class="keyword">null</span>) &#123;</span><br><span class="line">                stack.push(node);</span><br><span class="line">                node = node.left;</span><br><span class="line">                flag[stack.size()] = <span class="number">0</span>;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">            node = stack.peek();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        node = stack.pop();</span><br><span class="line">        <span class="comment">//输出节点</span></span><br><span class="line">        System.out.print(<span class="string">" "</span> +node.val);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>后序遍历的非递归处理比较复杂一些。主要原因在于后序遍历的顺序是：左-&gt;右-&gt;根，那就意味着输出左节点之后，需要回溯到根节点，借由根节点先去输出右节点，最后再回溯输出根节点。<strong>相当于回溯了两次根节点，那么关键就是要区别出这两次回溯。</strong></p>
 <p>这里采用了一个记录回溯状态的数组flag，当某个节点存在右子树并且已经处理过右子树之后，就置为1。等到处理完右节点之后的第二次回溯就可以输出该节点了，不用再进行右节点的处理。</p>
 <p>分步骤看后序遍历的非递归实现：</p>
@@ -439,6 +448,7 @@
 <h2 id="广度优先遍历-层级遍历"><a href="#广度优先遍历-层级遍历" class="headerlink" title="广度优先遍历(层级遍历)"></a>广度优先遍历(层级遍历)</h2><p>广度有限遍历即层次遍历是从根节点开始，沿着树的宽度遍历树的节点。从根节点到叶子节点，一层一层按照从左到右的顺序依次遍历节点。</p>
 <p>广度优先遍历的实现方式如下：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//广度优先遍历</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">BFS</span><span class="params">(TreeNode root)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (root == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">return</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    System.out.println();</span><br><span class="line">    <span class="comment">//初始化一个队列</span></span><br><span class="line">    Queue&lt;TreeNode&gt; queue = <span class="keyword">new</span> LinkedList&lt;TreeNode&gt;();</span><br><span class="line">    <span class="comment">//将root根节点入队</span></span><br><span class="line">    queue.offer(root);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span>(queue.isEmpty() == <span class="keyword">false</span>) &#123;</span><br><span class="line">        <span class="comment">//出队</span></span><br><span class="line">        TreeNode node = queue.poll();</span><br><span class="line">        System.out.print(<span class="string">" "</span>+node.val);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (node.left != <span class="keyword">null</span>) &#123;</span><br><span class="line">            queue.offer(node.left);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (node.right != <span class="keyword">null</span>) &#123;</span><br><span class="line">            queue.offer(node.right);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    System.out.println();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>对于广度优先遍历的实现而言：</p>
 <ol>
 <li>首先初始化一个队列，将根节点入队</li>

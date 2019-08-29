@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Go," />
+  <meta name="keywords" content="Go,">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/go-loop-closures-goroutines.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/go-loop-closures-goroutines.html">
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">sunlidea's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -194,7 +194,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -204,7 +204,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -214,7 +214,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -257,7 +257,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -293,7 +293,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -347,18 +347,24 @@
 <p>相关资料: <a href="https://golang.org/doc/faq#closures_and_goroutines" target="_blank" rel="noopener">closures_and_goroutines</a></p>
 <h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>当新手程序员开始使用Go或熟练的Go程序员开始使用新概念时，他们中的许多人都会犯一些常见的错误。目前为止，在Go的邮件列表中出现最频繁的错误之一，就是在循环迭代时将迭代数据传入并发的goroutines引发的错误。</p>
 <a id="more"></a>
+
 <h2 id="在循环迭代变量上使用goroutines"><a href="#在循环迭代变量上使用goroutines" class="headerlink" title="在循环迭代变量上使用goroutines"></a>在循环迭代变量上使用goroutines</h2><p>在Go中迭代时，操作者可能会尝试使用goroutines并行处理数据。例如，你可以使用闭包来编写类似下面的代码：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>上面的for循环可能没有达到你所预期的效果，因为这里的在整个循环中只初始化了一个val变量，这个val变量在每次循环时被重新赋值为当前切片元素。因为这里的闭包函数只绑定到了这个val变量，所以很有可能当你运行这个代码时，你会看到每个迭代打印的都是最后一个元素，而不是序列中的每个值，因为goroutines很可能会在循环结束后才开始执行。</p>
 <p>写这个闭包循环的正确方式如下:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">(val <span class="keyword">interface</span>&#123;&#125;)</span></span> &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;(val)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>通过将val作为参数传入闭包函数中，val在每次迭代时都已经赋值为了当前切片元素，并且传入的val值被放在了当前goroutine的堆栈上，所以当最终goroutine执行的时候，每个切片元素都能正确输出。</p>
 <p>另一种正确处理的方式如下，<br>需要注意的是，在循环体内声明的变量不在迭代之间共享，因此可以在闭包函数中单独使用。以下代码使用公共索引变量i来创建单独的val，这是可以产生预期的结果：</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> i := <span class="keyword">range</span> valslice &#123;</span><br><span class="line">	val := valslice[i]</span><br><span class="line">	<span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(val)</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>请注意，如果不将此闭包函数作为goroutine执行，代码将会按预期运行。以下示例打印出1到10之间的整数。这时候即使闭包函数仍然使用同一个变量（在这种情况下，就是i），但它们在变量变化之前就执行了，从而产生了预期的行为。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> i := <span class="number">1</span>; i &lt;= <span class="number">10</span>; i++ &#123;</span><br><span class="line">	<span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">		fmt.Println(i)</span><br><span class="line">	&#125;()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>下面是另一种相似的情况:</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">	<span class="keyword">go</span> val.MyMethod()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *val)</span> <span class="title">MyMethod</span><span class="params">()</span></span> &#123;</span><br><span class="line">        fmt.Println(v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>上面的例子也会打印出最后一个元素的值，原因与最上面并发时闭包的处理相同。要解决此问题，请在循环内声明另一个变量。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">for</span> _, val := <span class="keyword">range</span> values &#123;</span><br><span class="line">        newVal := val</span><br><span class="line">	<span class="keyword">go</span> newVal.MyMethod()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(v *val)</span> <span class="title">MyMethod</span><span class="params">()</span></span> &#123;</span><br><span class="line">        fmt.Println(v)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       

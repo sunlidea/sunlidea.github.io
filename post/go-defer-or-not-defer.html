@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Go," />
+  <meta name="keywords" content="Go,">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/go-defer-or-not-defer.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/go-defer-or-not-defer.html">
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">sunlidea's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -194,7 +194,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -204,7 +204,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -214,7 +214,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -257,7 +257,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -293,7 +293,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -348,6 +348,7 @@
 </blockquote>
 <p>defer语句调用一个函数，该函数的执行被推迟到外围函数返回的那一刻，外围函数的返回存在两种情况：正常执行到了return语句 或者 函数所在的goroutine发生了崩溃(panic)。也就是说如果外围函数通过显式return语句返回，defer语句真正执行的时机则是在该return语句设置任何结果参数之后，但在外围函数返回其调用者之前。</p>
 <a id="more"></a>
+
 <p>基于defer的特性，其天然适用于各种资源的关闭操作，如果我们不使用defer语句，则下面的例子中，虽然有调用<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```go</span><br><span class="line"></span><br><span class="line">func CopyFile(dstName, srcName string) (written int64, err error) &#123;</span><br><span class="line">    src, err := os.Open(srcName)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    dst, err := os.Create(dstName)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        //src.Close()</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    written, err = io.Copy(dst, src)</span><br><span class="line">    dst.Close()</span><br><span class="line">    src.Close()</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>所以官方推荐使用defer进行关闭，就像下面的代码，在打开资源的<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```go</span><br><span class="line"></span><br><span class="line">func CopyFile(dstName, srcName string) (written int64, err error) &#123;</span><br><span class="line">    src, err := os.Open(srcName)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    defer src.Close()</span><br><span class="line"></span><br><span class="line">    dst, err := os.Create(dstName)</span><br><span class="line">    if err != nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line">    defer dst.Close()</span><br><span class="line"></span><br><span class="line">    return io.Copy(dst, src)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>defer语句允许我们考虑在打开资源之后立即关闭每个资源，保证无论函数中的返回语句的位置和数量如何，文件都将被关闭。</p>
@@ -355,8 +356,10 @@
 <p>以下面的加锁解锁为例，为了保证client.seq的并发安全的递增，我们在调用时首先加锁，之后defer语句确保了锁的释放。可是如果我们在send函数里接下来执行非常耗时的操作呢？比如执行网络发送操作。这时候锁mutex就会一直处于加锁状态，直到send函数执行完之后才会执行<figure class="highlight plain"><figcaption><span>client.mutex.Unlock()```，并发的其他send请求就要一直处于等待状态，大大降低了并发的效率。</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">```go</span><br><span class="line"></span><br><span class="line">func (client *Client) send(call *Call)  &#123;</span><br><span class="line">	client.mutex.Lock()</span><br><span class="line">	defer client.mutex.Unlock()</span><br><span class="line">    </span><br><span class="line">	client.seq++</span><br><span class="line"></span><br><span class="line"> 	//do someting</span><br><span class="line">    //do someting</span><br><span class="line">    //do someting</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>因为我们只是想利用锁确保client.seq的并发安全，如果我们改成下面的代码，对seq进行操作之后立马解锁，其他并发的send操作就可以马上被执行到，而不用等到send函数全部执行，效率大大增加。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">send</span><span class="params">(call *Call)</span></span> &#123;</span><br><span class="line">	client.mutex.Lock()</span><br><span class="line">	client.seq++</span><br><span class="line">	client.mutex.Unlock()</span><br><span class="line"></span><br><span class="line">	<span class="comment">//do someting</span></span><br><span class="line">    <span class="comment">//do someting</span></span><br><span class="line">    <span class="comment">//do someting</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>或者如果我们仍旧想使用defer，我们可以这样修改，可以封装一个方法单独执行seq的操作。</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">send</span><span class="params">(call *Call)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	client.incrSeq()</span><br><span class="line">	</span><br><span class="line">	<span class="comment">//do someting</span></span><br><span class="line">    <span class="comment">//do someting</span></span><br><span class="line">    <span class="comment">//do someting</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(client *Client)</span> <span class="title">incrSeq</span><span class="params">()</span></span> &#123;</span><br><span class="line">	client.mutex.Lock()</span><br><span class="line">	<span class="keyword">defer</span> client.mutex.Unlock()</span><br><span class="line">	client.seq++</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>从上面的例子可以了解到，defer用于资源的释放时，要等待外围的函数全部执行完毕，如果我们在外围函数中对于资源的使用早早就结束了，接下来还要执行非常耗时的操作，那么这种场景下利用defer释放资源是非常不明智的，会极大的影响资源的使用效率。</p>
 <p>在这样的场景下，我们要么不使用defer，在资源使用完毕时直接释放；如果使用defer，就围绕着资源的使用周期另外封装函数，确保资源的尽早释放。</p>
 <p>简而言之，在使用defer时不要因为其简洁性而忽略了可能带来的性能问题，需要根据具体场景谨慎决定是否使用defer和怎样使用defer。</p>

@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Go,数据结构," />
+  <meta name="keywords" content="Go,数据结构,">
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+<meta name="description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a&amp;lt;-&amp;gt;b的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算">
 <meta name="keywords" content="Go,数据结构">
 <meta property="og:type" content="article">
 <meta property="og:title" content="基于令牌桶算法的流量控制">
 <meta property="og:url" content="http://yoursite.com/post/traffic-control-by-token-bucket.html">
 <meta property="og:site_name" content="sunlidea&#39;s Blog">
-<meta property="og:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+<meta property="og:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a&amp;lt;-&amp;gt;b的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-05-23T09:08:47.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="基于令牌桶算法的流量控制">
-<meta name="twitter:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如ab的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算法的区别：  漏桶">
+<meta name="twitter:description" content="问题起源作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a&amp;lt;-&amp;gt;b的会话)为基本单位加上了流量控制。 限流算法常用算法比较常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在谈谈高并发系统的限流这篇文章中有比较详细的介绍。 需要注意的是漏桶算法和令牌桶算">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/traffic-control-by-token-bucket.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/traffic-control-by-token-bucket.html">
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">sunlidea's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -194,7 +194,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -204,7 +204,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -214,7 +214,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -257,7 +257,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -293,7 +293,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -353,7 +353,7 @@
       
 
       
-        <h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a<->b的会话)为基本单位加上了流量控制。</-></p>
+        <h2 id="问题起源"><a href="#问题起源" class="headerlink" title="问题起源"></a>问题起源</h2><p>作为一款IM软件，负责收发消息的通讯服务器需要仔细处理QPS的压力。为了应对潜在的恶意流量攻击，比如第三方短时间发送大流量到服务器，引起通讯服务器瘫痪，最近以每个会话(例如a&lt;-&gt;b的会话)为基本单位加上了流量控制。</p>
 <h2 id="限流算法"><a href="#限流算法" class="headerlink" title="限流算法"></a>限流算法</h2><h3 id="常用算法比较"><a href="#常用算法比较" class="headerlink" title="常用算法比较"></a>常用算法比较</h3><p>常用限流算法包含计时器，漏桶，令牌桶算法。具体的比较与分析，在<a href="https://www.cnblogs.com/haoxinyue/p/6792309.html" target="_blank" rel="noopener">谈谈高并发系统的限流</a>这篇文章中有比较详细的介绍。</p>
 <p>需要注意的是漏桶算法和令牌桶算法的区别：</p>
 <ul>
@@ -361,9 +361,10 @@
 <li>令牌桶算法则既平均了数据的通过速率，又能够处理突发的流量；</li>
 </ul>
 <a id="more"></a>
+
 <h3 id="令牌桶"><a href="#令牌桶" class="headerlink" title="令牌桶"></a>令牌桶</h3><p>利用令牌桶的算法进行限流是目前比较通用的方法，所以本文主要聚焦于令牌桶算法的介绍。</p>
 <p>根据wiki上的介绍<a href="https://en.wikipedia.org/wiki/Token_bucket" target="_blank" rel="noopener">令牌桶算法</a>，基本定义是：</p>
-<p>一个最大容量为b个令牌的令牌桶，按照一定速率r往桶中添加令牌。当需要处理的数据包通过时，先向该令牌桶索要一定数量n个的令牌(数据大小<->令牌个数 的对应关系自定义)，如果这时候桶内有&gt;=n个的令牌，那么就从桶中移除n个令牌，然后该数据包通过；如果桶内的令牌数不足，那么该数据包就被表示为目前不能通过，不通过的数据包通常有3种处理方式：</-></p>
+<p>一个最大容量为b个令牌的令牌桶，按照一定速率r往桶中添加令牌。当需要处理的数据包通过时，先向该令牌桶索要一定数量n个的令牌(数据大小&lt;-&gt;令牌个数 的对应关系自定义)，如果这时候桶内有&gt;=n个的令牌，那么就从桶中移除n个令牌，然后该数据包通过；如果桶内的令牌数不足，那么该数据包就被表示为目前不能通过，不通过的数据包通常有3种处理方式：</p>
 <ul>
 <li>被丢弃</li>
 <li>阻塞等待，直到桶内产生了足够多的令牌</li>
@@ -384,6 +385,7 @@
 <p>因为我们的服务端主要采用Go语言，所以本文主要介绍Go语言实现的令牌桶算法，Go语言官方已经提供了基于令牌桶令牌桶算法的速率限制器<a href="https://godoc.org/golang.org/x/time/rate" target="_blank" rel="noopener">rateLimiter</a></p>
 <p>该rateLimiter的基本结构如下</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> Limiter <span class="keyword">struct</span> &#123;</span><br><span class="line">    limit Limit</span><br><span class="line">    burst <span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    mu     sync.Mutex</span><br><span class="line">    tokens <span class="keyword">float64</span></span><br><span class="line">    <span class="comment">// last is the last time the limiter's tokens field was updated</span></span><br><span class="line">    last time.Time</span><br><span class="line">    <span class="comment">// lastEvent is the latest time of a rate-limited event (past or future)</span></span><br><span class="line">    lastEvent time.Time</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>针对获取不到足够令牌的数据包进行的不同处理，该限制器主要提供了三种方法。首先如果令牌充足的情况下，三种方法都消耗n个令牌；但是如果令牌不足，那么每个方法有各自的处理：</p>
 <ul>
 <li><p>AllowN：令牌不足时，直接返回false，适合不通过的数据包需要被直接丢弃的情况。</p>

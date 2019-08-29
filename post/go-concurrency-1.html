@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="zh-Hans">
-<head>
-  <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform" />
-<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
 
-<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Go," />
+  <meta name="keywords" content="Go,">
 
 
 
@@ -120,7 +120,7 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/post/go-concurrency-1.html"/>
+  <link rel="canonical" href="http://yoursite.com/post/go-concurrency-1.html">
 
 
 
@@ -154,7 +154,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/"  class="brand" rel="start">
+      <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">sunlidea's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -184,7 +184,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
             
             首页
           </a>
@@ -194,7 +194,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
             
             标签
           </a>
@@ -204,7 +204,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
             
             分类
           </a>
@@ -214,7 +214,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
             
             归档
           </a>
@@ -257,7 +257,7 @@
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sun li">
-      <meta itemprop="description" content="">
+      <meta itemprop="description" content>
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
@@ -293,7 +293,7 @@
           </span>
 
           
-            <span class="post-category" >
+            <span class="post-category">
             
               <span class="post-meta-divider">|</span>
             
@@ -349,6 +349,7 @@
 <p>上面这句话可以说是Go语言并发模型的中心思想了，翻译过来就是：不要通过共享内存进行通信，要通过通信来共享内存。</p>
 <p>这句话该怎样理解呢？</p>
 <a id="more"></a>
+
 <ul>
 <li><p>并发编程的关键点在于，如何让并发的程序间进行安全有效的信息共享；</p>
 </li>
@@ -392,6 +393,7 @@
 <p><a href="https://golang.org/doc/play/sieve.go" target="_blank" rel="noopener">源代码链接</a></p>
 <p><a href="https://play.golang.org/p/0hi9osM0SQ3" target="_blank" rel="noopener">The Go Playground在线运行版</a></p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">"fmt"</span></span><br><span class="line">	<span class="string">"time"</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//素数生成器</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//生成用于筛选的数据源 发送2,3,4,...到通道变量ch</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Generate</span><span class="params">(ch <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//2是最小的素数，从2开始递增</span></span><br><span class="line">	<span class="keyword">for</span> i := <span class="number">2</span>; ; i++ &#123;</span><br><span class="line">		<span class="comment">//发送i到通道ch</span></span><br><span class="line">		ch &lt;- i</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Filter</span><span class="params">(prime <span class="keyword">int</span>, in &lt;-<span class="keyword">chan</span> <span class="keyword">int</span>, out <span class="keyword">chan</span>&lt;- <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line">		<span class="comment">//从in通道获取数据</span></span><br><span class="line">		i := &lt;-in</span><br><span class="line">		<span class="keyword">if</span> i%prime != <span class="number">0</span> &#123;</span><br><span class="line">			<span class="comment">//如果i不能被当前的素数prime整除，</span></span><br><span class="line">			<span class="comment">//那么就发送给通道out继续进行检验</span></span><br><span class="line">			out &lt;- i</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//如果i能够被prime整除，说明不为素数，不做处理</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">//初始通道</span></span><br><span class="line">	ch := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line"></span><br><span class="line">	<span class="comment">//开辟一个Go程 用于生成数据源</span></span><br><span class="line">	<span class="keyword">go</span> Generate(ch)</span><br><span class="line"></span><br><span class="line">	<span class="keyword">for</span> &#123;</span><br><span class="line"></span><br><span class="line">		<span class="comment">//最新找到的一个素数 这里输出来</span></span><br><span class="line">		prime := &lt;-ch</span><br><span class="line">		fmt.Println(prime)</span><br><span class="line"></span><br><span class="line">		ch1 := <span class="built_in">make</span>(<span class="keyword">chan</span> <span class="keyword">int</span>)</span><br><span class="line">		<span class="comment">//这里对理解程序很关键 每次循环都产生一个新的Go程</span></span><br><span class="line">		<span class="comment">//这个Go程与当前的素数prime绑定，用于监测数据源是否</span></span><br><span class="line">		<span class="comment">//可以被这个素数整除。要注意的是，因为Filter内有一个</span></span><br><span class="line">		<span class="comment">//无限循环，因此这个Go程一旦产生就会不停运行下去</span></span><br><span class="line">		<span class="keyword">go</span> Filter(prime, ch, ch1)</span><br><span class="line">		ch = ch1</span><br><span class="line"></span><br><span class="line">		<span class="comment">//为了更好的观察数据输出 每次循环暂停一秒</span></span><br><span class="line">		time.Sleep(time.Second * <span class="number">1</span>)</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>解析这个素数生成器：</p>
 <ol>
 <li><p>Generate函数产生用于筛选的数据源，从最小的素数2开始递增，将产生的数据通过通道变量ch传递出去；</p>
